@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DesignFlowAI — Engineering Knowledge Intelligence for CAD</title>
+  <meta name="description" content="AI-powered knowledge retrieval and intelligent layer for CATIA and NX. Connecting DFM guidelines, lessons learned, and design standards directly to your geometry."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080b10;
+      --bg2: #0d1219;
+      --surface: #111720;
+      --border: rgba(0,180,255,0.12);
+      --accent: #00b4ff;
+      --accent2: #0066cc;
+      --accent-glow: rgba(0,180,255,0.15);
+      --text: #e8edf5;
+      --text-muted: #6b7a90;
+      --text-dim: #3a4558;
+      --mono: 'IBM Plex Mono', monospace;
+      --display: 'Syne', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,180,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    section, nav, footer { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(8,11,16,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg) !important;
+      padding: 8px 20px;
+      border-radius: 2px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-cta:hover { background: #33c5ff !important; color: var(--bg) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 48px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 36px;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -2px;
+      color: var(--text);
+      max-width: 820px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .accent { color: var(--accent); }
+
+    h1 .dim {
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .hero-sub {
+      font-family: var(--mono);
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-top: 28px;
+      line-height: 1.75;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 44px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 14px 32px;
+      border: none;
+      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: #33c5ff; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-muted);
+      padding: 14px 32px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat-item {}
+    .stat-num {
+      font-family: var(--display);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION BASE ── */
+    .section {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      color: var(--text);
+      max-width: 640px;
+      margin-bottom: 24px;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── PROBLEM ── */
+    #problem .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 56px;
+    }
+
+    .problem-lead {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
+
+    .problem-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 2px;
+    }
+
+    .problem-card .num {
+      font-size: 28px;
+      font-family: var(--display);
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .problem-card .desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    /* ── PRODUCT ── */
+    #product { background: var(--bg2); padding: 100px 0; }
+    #product .section { max-width: 1200px; }
+
+    .product-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+
+    .product-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+
+    .product-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 0;
+    }
+
+    .layer {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .layer:last-child { border-bottom: none; }
+
+    .layer-num {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      min-width: 28px;
+      padding-top: 2px;
+    }
+
+    .layer-content {}
+    .layer-title {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .layer-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .layer-status {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .status-active { background: rgba(0,180,255,0.12); color: var(--accent); border: 1px solid rgba(0,180,255,0.25); }
+    .status-next { background: rgba(255,255,255,0.04); color: var(--text-muted); border: 1px solid var(--border); }
+
+    /* ── CAD DIAGRAM ── */
+    .cad-diagram {
+      margin-top: 64px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cad-diagram::before {
+      content: 'SYSTEM ARCHITECTURE';
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+    }
+
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .arch-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 2px;
+    }
+
+    .arch-box-title {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .arch-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .arch-box ul li {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .arch-box ul li::before {
+      content: '›';
+      color: var(--accent);
+    }
+
+    .arch-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .arch-arrow-line {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      position: relative;
+    }
+
+    .arch-arrow-line::after {
+      content: '▶';
+      position: absolute;
+      right: -8px;
+      top: -6px;
+      font-size: 8px;
+      color: var(--accent);
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .team-card:hover { border-color: var(--accent); }
+
+    .team-name {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .team-bio {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .team-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .team-tag {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .advisors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .advisor-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      border-radius: 2px;
+    }
+
+    .advisor-name {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .advisor-affil {
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .advisor-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── TRACTION ── */
+    #traction { background: var(--bg2); padding: 100px 0; }
+
+    .traction-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 48px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .traction-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .traction-item:last-child { border-bottom: none; }
+    .traction-item:hover { background: rgba(0,180,255,0.03); }
+
+    .traction-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(0,180,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .traction-text {}
+    .traction-title {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .traction-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT / DEMO ── */
+    #contact {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-copy h2 { max-width: 400px; }
+
+    .contact-copy p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-top: 16px;
+      max-width: 400px;
+    }
+
+    .contact-badges {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 2px;
+    }
+
+    /* ── FORM ── */
+    .demo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group select option { background: var(--surface); }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 14px 32px;
+      border: none;
+      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .form-submit:hover { background: #33c5ff; }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      #hero, .section, #contact { padding-left: 20px; padding-right: 20px; }
+      #product .section, #traction .section { padding-left: 20px; padding-right: 20px; }
+      h1 { letter-spacing: -1px; }
+      #problem .problem-grid { grid-template-columns: 1fr; }
+      .product-intro { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .advisors { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+      .arch-grid { grid-template-columns: 1fr; }
+      .arch-arrow { transform: rotate(90deg); }
+      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+
+    .form-success.show { display: block; }
+    .form-success h3 {
+      font-family: var(--display);
+      font-size: 22px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .form-success p { color: var(--text-muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">DesignFlow<span>AI</span></a>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#product">Product</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#traction">Traction</a></li>
+      <li><a href="#contact" class="nav-cta">Request Demo</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-tag">MIT Sandbox Backed · CATIA &amp; NX Integration</div>
+    <h1>
+      Engineering knowledge,<br/>
+      <span class="accent">wired to your geometry.</span>
+    </h1>
+    <p class="hero-sub">
+      DesignFlowAI is the AI-powered knowledge retrieval layer for CATIA and NX —
+      surfacing DFM guidelines, lessons learned, and design standards in real time,
+      connected directly to the part you are working on.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request a Demo</a>
+      <a href="#product" class="btn-secondary">See How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">23%</div>
+        <div class="stat-label">of engineering time lost to<br/>non-value-added work</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">45+</div>
+        <div class="stat-label">DRE customer discovery<br/>interviews completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">14</div>
+        <div class="stat-label">patents held by<br/>our founding team</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">$15B</div>
+        <div class="stat-label">automotive PLM market<br/>growing at 12% CAGR</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="section reveal">
+      <div class="section-tag">The Problem</div>
+      <h2>The knowledge is there.<br/>Finding it is the problem.</h2>
+      <div class="problem-grid">
+        <div>
+          <p class="problem-lead">
+            Design Release Engineers at Toyota, Rivian, Boeing, and Apple spend a
+            significant part of every day on indirect work — hunting across PLM systems,
+            shared drives, legacy PDFs, and tribal memory for knowledge that already
+            exists somewhere in the organization.
+          </p>
+          <p class="problem-lead">
+            The cost is not just time. A single late-stage design change in automotive can
+            cost millions in tooling and program delay. When institutional knowledge walks
+            out the door, those costs multiply across every future program.
+          </p>
+        </div>
+        <div class="problem-cards">
+          <div class="problem-card">
+            <div class="num">23%</div>
+            <div class="desc">of engineering time is spent on non-value-added work — with half of engineering leaders estimating the true figure is 20–39% of the workday. <em>(CoLab, 2024)</em></div>
+          </div>
+          <div class="problem-card">
+            <div class="num">1+ hr/day</div>
+            <div class="desc">Nearly half of 100,000+ engineers surveyed spent at least one hour every single day searching for parts alone — before standards lookups or lessons learned. <em>(CADENAS / Z2Data, 2022)</em></div>
+          </div>
+          <div class="problem-card">
+            <div class="num">$M per change</div>
+            <div class="desc">A single late-stage design change in automotive can cost millions in tooling rework and program delay. The knowledge gap is structural — and worsens as workforces turn over.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- PRODUCT -->
+  <section id="product">
+    <div class="section reveal">
+      <div class="section-tag">The Product</div>
+      <h2>Contextual design intelligence, inside your CAD environment.</h2>
+
+      <div class="product-intro">
+        <p class="product-desc">
+          DesignFlowAI integrates natively into CATIA and NX via CAA C++ API — where
+          engineers already work. A natural language interface surfaces relevant knowledge
+          based on cursor position, selected geometry, and PLM metadata, so the right
+          standard or lesson learned appears exactly when and where it is needed.
+          <br/><br/>
+          The system combines a general engineering layer (industry standards, DFM rules,
+          material properties) with a customer-specific layer (company lessons learned,
+          internal guidelines, proprietary standards). RAG and GraphRAG retrieve relevant
+          knowledge; GNN representations of the engineering domain ensure responses are
+          structurally grounded — not just textually similar.
+        </p>
+
+        <div class="product-layers">
+          <div class="layer">
+            <div class="layer-num">L1</div>
+            <div class="layer-content">
+              <div class="layer-title">Knowledge Retrieval</div>
+              <div class="layer-desc">Cursor-position spatial context + RAG/GraphRAG surfaces DFM guidelines, lessons learned, and design standards in real time.</div>
+            </div>
+            <span class="layer-status status-active">Active Build</span>
+          </div>
+          <div class="layer">
+            <div class="layer-num">L2</div>
+            <div class="layer-content">
+              <div class="layer-title">Geometry Modification</div>
+              <div class="layer-desc">AI-informed knowledge applied directly — suggesting and executing changes to CAD geometry based on retrieved standards.</div>
+            </div>
+            <span class="layer-status status-next">Roadmap</span>
+          </div>
+          <div class="layer">
+            <div class="layer-num">L3</div>
+            <div class="layer-content">
+              <div class="layer-title">Geometry Generation</div>
+              <div class="layer-desc">New geometry created from knowledge-grounded constraints — the system as a true design collaborator.</div>
+            </div>
+            <span class="layer-status status-next">Roadmap</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-diagram">
+        <div class="arch-grid">
+          <div class="arch-box">
+            <div class="arch-box-title">CAD Environment</div>
+            <ul>
+              <li>CATIA 3DEXPERIENCE (V6)</li>
+              <li>NX (Siemens)</li>
+              <li>Cursor position context</li>
+              <li>PLM metadata</li>
+              <li>Selected geometry</li>
+            </ul>
+          </div>
+          <div class="arch-arrow">
+            <div class="arch-arrow-line"></div>
+            <span>Geometric<br/>Context</span>
+          </div>
+          <div class="arch-box">
+            <div class="arch-box-title">DesignFlowAI Intelligence Layer</div>
+            <ul>
+              <li>RAG + GraphRAG retrieval</li>
+              <li>GNN engineering knowledge graph</li>
+              <li>Customer-specific knowledge layer</li>
+              <li>Natural language interface</li>
+              <li>Provisional patent: cursor + RAG</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="section reveal">
+      <div class="section-tag">The Team</div>
+      <h2>Built by engineers who lived the problem.</h2>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-name">Hiroki (Hiro) Ogasawara</div>
+          <div class="team-role">Co-Founder &amp; CEO</div>
+          <p class="team-bio">
+            10+ years as a Design Release Engineer at Toyota — Assistant Manager,
+            Body Design Engineering. 14 patents and patent rights in automobile design.
+            Went on to Apple, gaining rare cross-industry depth in CATIA and NX.
+            Recipient of the 2024 MIT SDM Award for Leadership, Innovation, and Systems Thinking.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag">Toyota · 10 yrs</span>
+            <span class="team-tag">Apple</span>
+            <span class="team-tag">14 Patents</span>
+            <span class="team-tag">MIT SDM + EECS</span>
+            <span class="team-tag">CATIA · NX Expert</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-name">Rowell Castro</div>
+          <div class="team-role">Co-Founder &amp; CTO</div>
+          <p class="team-bio">
+            Dual MIT master's degrees in SDM and EECS. 9+ years at Shell, most recently
+            as Digital Innovations Advisor — two Royal Dutch Shell VP Awards for analytics
+            innovation. Co-founded Bili Online Grocery in the Philippines. MIT thesis
+            addresses the ontology of engineering design — directly informing DesignFlowAI's
+            knowledge architecture.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag">Shell · 9 yrs</span>
+            <span class="team-tag">Bili (Co-founder)</span>
+            <span class="team-tag">AI / ML</span>
+            <span class="team-tag">MIT SDM + EECS</span>
+            <span class="team-tag">2× Shell VP Award</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-tag" style="margin-top:56px;">Advisors</div>
+      <div class="advisors">
+        <div class="advisor-card">
+          <div class="advisor-name">Prof. Faez Ahmed</div>
+          <div class="advisor-affil">MIT DeCoDE Lab</div>
+          <p class="advisor-desc">Leading researcher in AI-driven CAD and computational design. His work on geometry-aware machine learning directly intersects with DesignFlowAI's core architecture.</p>
+        </div>
+        <div class="advisor-card">
+          <div class="advisor-name">Prof. Michael Cusumano</div>
+          <div class="advisor-affil">MIT SDM Co-Director</div>
+          <p class="advisor-desc">Author of <em>The Business of Platforms</em> and foremost scholar on automotive industry strategy and platform competition. Advising on GTM and platform expansion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- TRACTION -->
+  <section id="traction">
+    <div class="section reveal">
+      <div class="section-tag">Traction</div>
+      <h2>Signal, not scale — and the signal is strong.</h2>
+      <div class="traction-list">
+        <div class="traction-item">
+          <div class="traction-icon">🏭</div>
+          <div class="traction-text">
+            <div class="traction-title">Toyota & Rivian engagement</div>
+            <div class="traction-desc">Active interest from DREs and a director at Toyota, and engineers at Rivian following MVBP demonstrations. Engineering and leadership stakeholders at both organizations confirmed the problem and expressed interest in piloting.</div>
+          </div>
+        </div>
+        <div class="traction-item">
+          <div class="traction-icon">🎙</div>
+          <div class="traction-text">
+            <div class="traction-title">45+ customer discovery interviews</div>
+            <div class="traction-desc">Completed across Toyota and Rivian Design Release Engineers, validating the core problem and shaping product decisions with the exact buyers who will pay for it.</div>
+          </div>
+        </div>
+        <div class="traction-item">
+          <div class="traction-icon">⚙️</div>
+          <div class="traction-text">
+            <div class="traction-title">Working RAG prototype</div>
+            <div class="traction-desc">Core knowledge retrieval layer operational and demonstrated. CATIA 3DEXPERIENCE integration actively in progress via CAA C++ API.</div>
+          </div>
+        </div>
+        <div class="traction-item">
+          <div class="traction-icon">🎓</div>
+          <div class="traction-text">
+            <div class="traction-title">MIT Sandbox funded</div>
+            <div class="traction-desc">Institutional backing from MIT's flagship startup program. Originated in Professor Bill Aulet's Entrepreneurship 101. Provisional patent filed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-wrap reveal">
+      <div class="contact-copy">
+        <div class="section-tag">Get In Touch</div>
+        <h2>Request a demo or discuss a pilot.</h2>
+        <p>
+          We are actively running pilots with design engineering teams at automotive OEMs
+          and EV startups. If you are a DRE, engineering director, or investor — we want
+          to hear from you.
+        </p>
+        <div class="contact-badges">
+          <span class="badge">Pilot Inquiries</span>
+          <span class="badge">Investor Relations</span>
+          <span class="badge">Engineering Roles</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="demo-form" id="demoForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="firstName" placeholder="Jane" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="lastName" placeholder="Smith" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Work Email</label>
+            <input type="email" id="email" placeholder="jane@company.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" id="company" placeholder="Toyota, Rivian, Boeing…"/>
+          </div>
+          <div class="form-group">
+            <label>I am a…</label>
+            <select id="role">
+              <option value="">Select your role</option>
+              <option>Design Release Engineer (DRE)</option>
+              <option>Engineering Manager / Director</option>
+              <option>Investor / VC</option>
+              <option>CAD / PLM Administrator</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (optional)</label>
+            <textarea id="message" placeholder="Tell us about your team, CAD environment, or what brought you here…"></textarea>
+          </div>
+          <button class="form-submit" onclick="handleSubmit()">Request a Demo →</button>
+          <div class="form-note">We respond within one business day.</div>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <h3>Request received.</h3>
+          <p>Thanks for reaching out — we will be in touch within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">DesignFlow<span>AI</span></div>
+    <ul class="footer-links">
+      <li><a href="https://github.com/hiromitsdm/EngineeringDesignAI" target="_blank">GitHub</a></li>
+      <li><a href="mailto:hiro@designflowai.com">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 DesignFlowAI. MIT Sandbox Backed.</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Form submit — uses mailto as fallback (replace with Formspree endpoint)
+    function handleSubmit() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const company = document.getElementById('company').value.trim();
+      const role = document.getElementById('role').value;
+      const message = document.getElementById('message').value.trim();
+
+      if (!firstName || !email) {
+        alert('Please enter your name and email.');
+        return;
+      }
+
+      // Replace with your Formspree endpoint: https://formspree.io/f/YOUR_ID
+      const FORMSPREE_ENDPOINT = 'YOUR_FORMSPREE_ENDPOINT';
+
+      if (FORMSPREE_ENDPOINT !== 'YOUR_FORMSPREE_ENDPOINT') {
+        fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ firstName, lastName, email, company, role, message })
+        }).then(r => {
+          if (r.ok) showSuccess();
+        });
+      } else {
+        // Fallback: open mail client
+        const subject = encodeURIComponent('DesignFlowAI Demo Request');
+        const body = encodeURIComponent(
+          `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\nRole: ${role}\n\n${message}`
+        );
+        window.location.href = `mailto:hiro@designflowai.com?subject=${subject}&body=${body}`;
+        showSuccess();
+      }
+    }
+
+    function showSuccess() {
+      document.getElementById('demoForm').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+    }
+  </script>
+</body>
+</html>
