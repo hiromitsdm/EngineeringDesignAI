@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DesignFlowAI — Design System</title>
+<meta name="description" content="DesignFlowAI design system v0.2 — color, typography, components." />
+<style>
+  /* ============================================================
+     DESIGN TOKENS — all colors, fonts, surfaces in one place
+     ============================================================ */
+  :root {
+    /* Teal accent family (locked April 2026) */
+    --teal-primary: #0f766e;
+    --teal-link:    #134e4a;
+    --teal-high:    #14b8a6;
+    --teal-deep:    #042f2c;  /* text on bright teal fills */
+    --teal-tint:    #99f6e4;  /* sub-text on teal fills (dark mode) */
+    --teal-tint-2:  #5eead4;  /* sub-text on teal fills (lighter) */
+
+    /* Surfaces */
+    --black:     #000000;
+    --pale:      #f5f5f7;
+    --white:     #ffffff;
+    --ink:       #1d1d1f;
+
+    /* Graphite tier (in-CAD, dark elevated surfaces) */
+    --graphite-a: #272729;
+    --graphite-b: #1e1e1f;
+    --graphite-c: #28282b;
+    --graphite-d: #2a2a2c;
+
+    /* Neutrals */
+    --gray-2: #6e6e73;
+    --gray-3: #86868b;
+    --gray-4: #d2d2d7;
+    --gray-5: #424245;
+
+    /* Status (in-CAD only) */
+    --success: #16a34a;
+    --warning: #d97706;
+    --error:   #dc2626;
+
+    /* Typography */
+    --font-display: "SF Pro Display", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-text:    "SF Pro Text",    "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-mono:    "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, monospace;
+  }
+
+  /* ============================================================
+     THEME — dark default, light when [data-theme="light"]
+     Variables flip; everything else cascades automatically.
+     ============================================================ */
+  :root {
+    --bg:          var(--black);
+    --bg-card:     var(--graphite-a);
+    --bg-elevated: var(--graphite-c);
+    --text-primary:   var(--pale);
+    --text-secondary: var(--gray-3);
+    --text-tertiary:  #555555;
+    --accent:      var(--teal-high);
+    --accent-deep: var(--teal-deep);
+    --border:      var(--gray-5);
+    --border-soft: #2e2e30;
+  }
+  :root[data-theme="light"] {
+    --bg:          var(--pale);
+    --bg-card:     var(--white);
+    --bg-elevated: var(--white);
+    --text-primary:   var(--ink);
+    --text-secondary: var(--gray-2);
+    --text-tertiary:  #9a9a9f;
+    --accent:      var(--teal-primary);
+    --accent-deep: var(--white);
+    --border:      var(--gray-4);
+    --border-soft: #e5e5ea;
+  }
+
+  /* ============================================================
+     RESET + BASE
+     ============================================================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-text);
+    background: var(--bg);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  /* ============================================================
+     TOP NAV
+     ============================================================ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border-soft);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.4px;
+  }
+  .brand-mark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    position: relative;
+  }
+  .brand-mark::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    background: var(--accent);
+    border-radius: 1px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .nav-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover { color: var(--text-primary); }
+
+  /* Theme toggle pill */
+  .theme-toggle {
+    display: inline-flex;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    font-family: var(--font-text);
+  }
+  .theme-toggle button {
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .theme-toggle button.active {
+    background: var(--accent);
+    color: var(--accent-deep);
+  }
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  section {
+    padding: 96px 0;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  section:last-of-type { border-bottom: 0; }
+
+  /* ============================================================
+     SECTION HEADERS
+     ============================================================ */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 680px;
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero { padding: 120px 0 96px; }
+  .hero-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 28px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+  }
+  .hero-meta-divider {
+    width: 1px;
+    height: 12px;
+    background: var(--border);
+  }
+
+  /* ============================================================
+     COLOR SWATCHES
+     ============================================================ */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .swatch-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .swatch-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .swatch {
+    border: 0.5px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 18px;
+    background: var(--bg-card);
+  }
+  .swatch-color {
+    width: 100%;
+    height: 80px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    border: 0.5px solid rgba(0, 0, 0, 0.08);
+  }
+  .swatch-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .swatch-role {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .swatch-group-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  .swatch-group-label:first-of-type { margin-top: 0; }
+
+  /* ============================================================
+     TYPOGRAPHY LADDER
+     ============================================================ */
+  .type-row {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .type-row:last-child { border-bottom: 0; }
+  .type-sample {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    line-height: 1.05;
+  }
+  .type-sample.text-family { font-family: var(--font-text); line-height: 1.5; }
+  .type-sample.mono { font-family: var(--font-mono); }
+  .type-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .type-meta strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ============================================================
+     COMPONENT EXAMPLES
+     ============================================================ */
+  .demo-card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 16px;
+  }
+  .demo-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn {
+    font-family: var(--font-text);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 0;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: var(--teal-primary);
+    color: var(--white);
+  }
+  .btn-primary-dark {
+    background: var(--teal-high);
+    color: var(--teal-deep);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .btn-pill {
+    background: var(--teal-primary);
+    color: var(--white);
+    border-radius: 999px;
+    padding: 12px 28px;
+  }
+
+  /* Eyebrow examples */
+  .eyebrow-demo {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Link examples */
+  .link-demo {
+    color: var(--teal-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  :root[data-theme="dark"] .link-demo {
+    color: var(--teal-tint-2);
+  }
+
+  /* Featured card */
+  .feature-card {
+    background: var(--teal-primary);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .feature-card .feature-card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--teal-tint);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .feature-card .feature-card-stat {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .feature-card .feature-card-sub {
+    font-size: 12px;
+    color: var(--teal-tint);
+  }
+
+  /* ============================================================
+     SLIDE TEMPLATES (mini 16:9 mockups)
+     ============================================================ */
+  .slide-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .slide {
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    padding: 24px 28px;
+    position: relative;
+    box-sizing: border-box;
+    border: 0.5px solid var(--border-soft);
+  }
+  .slide-dark { background: var(--black); }
+  .slide-light { background: var(--pale); }
+  .slide-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .slide-dark .slide-eyebrow { color: var(--teal-high); }
+  .slide-light .slide-eyebrow { color: var(--teal-primary); }
+  .slide-stat {
+    font-family: var(--font-display);
+    font-size: 80px;
+    font-weight: 600;
+    letter-spacing: -3px;
+    line-height: 1;
+    margin: 18px 0 0;
+  }
+  .slide-dark .slide-stat { color: var(--teal-high); }
+  .slide-light .slide-stat { color: var(--teal-primary); }
+  .slide-headline {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-top: 10px;
+    max-width: 75%;
+  }
+  .slide-dark .slide-headline { color: var(--pale); }
+  .slide-light .slide-headline { color: var(--ink); }
+  .slide-source {
+    position: absolute;
+    bottom: 16px;
+    left: 28px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+  }
+  .slide-page {
+    position: absolute;
+    bottom: 16px;
+    right: 28px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+  }
+  .slide-dark .slide-source, .slide-dark .slide-page { color: var(--gray-3); }
+  .slide-light .slide-source, .slide-light .slide-page { color: var(--gray-2); }
+
+  /* ============================================================
+     RULES TABLE
+     ============================================================ */
+  .rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .rules-table th, .rules-table td {
+    text-align: left;
+    padding: 14px 18px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .rules-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .rules-table td {
+    color: var(--text-primary);
+  }
+  .rules-table .mono-cell {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ============================================================
+     DOS / DONTS
+     ============================================================ */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .rule-card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .rule-card .rule-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .rule-card.do .rule-tag { color: var(--teal-primary); }
+  :root[data-theme="dark"] .rule-card.do .rule-tag { color: var(--teal-high); }
+  .rule-card.dont .rule-tag { color: #dc2626; }
+  :root[data-theme="dark"] .rule-card.dont .rule-tag { color: #f87171; }
+  .rule-card p {
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .rule-card .rule-detail {
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    padding: 48px 0;
+    border-top: 0.5px solid var(--border-soft);
+    margin-top: 0;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 720px) {
+    h1 { font-size: 36px; letter-spacing: -1.2px; }
+    h2 { font-size: 28px; letter-spacing: -1px; }
+    .container { padding: 0 20px; }
+    section { padding: 64px 0; }
+    .hero { padding: 64px 0; }
+    .nav-links { display: none; }
+    .swatch-grid, .swatch-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .type-row { grid-template-columns: 1fr; gap: 8px; }
+    .slide-grid { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     NAV
+     ========================================================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark"></span>
+      <span>DesignFlowAI</span>
+    </a>
+    <div class="nav-links">
+      <a href="#palette" class="nav-link">Palette</a>
+      <a href="#typography" class="nav-link">Typography</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a href="#slides" class="nav-link">Slides</a>
+      <a href="#rules" class="nav-link">Rules</a>
+      <div class="theme-toggle" role="tablist" aria-label="Theme">
+        <button id="btn-light" type="button" aria-label="Light theme">Light</button>
+        <button id="btn-dark" type="button" class="active" aria-label="Dark theme">Dark</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">DesignFlowAI · Design system · v0.2</div>
+    <h1>Engineering knowledge,<br />wired to a system.</h1>
+    <p class="lede">A precision-editorial design system spanning the marketing site, the in-CAD product UI, and pitch materials. Same DNA across all three; canvas rhythm and density change to match context.</p>
+    <div class="hero-meta">
+      <span>April 2026</span>
+      <span class="hero-meta-divider"></span>
+      <span>Hiroki Ogasawara · Rowell Castro</span>
+    </div>
+  </div>
+</header>
+
+<!-- =========================================================
+     PALETTE
+     ========================================================= -->
+<section id="palette">
+  <div class="container">
+    <div class="eyebrow">Section 01</div>
+    <h2>Color, codified.</h2>
+    <p class="lede" style="margin-bottom: 56px;">A single teal accent family — three stops — drives every interactive and decorative moment. Black, pale neutral, and white carry the canvas. No secondary brand color competes.</p>
+
+    <div class="swatch-group-label">Teal accent family</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #0f766e;"></div>
+        <div class="swatch-name">DesignFlow Teal</div>
+        <div class="swatch-hex">#0f766e</div>
+        <div class="swatch-role">Primary action fill. Buttons, focus rings, eyebrows on light slides, accent bars.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #134e4a;"></div>
+        <div class="swatch-name">Body Link Teal</div>
+        <div class="swatch-hex">#134e4a</div>
+        <div class="swatch-role">Inline links in long-form copy on light canvas. At ≤11px, fall back to DesignFlow Teal.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #14b8a6;"></div>
+        <div class="swatch-name">High-Luminance Teal</div>
+        <div class="swatch-hex">#14b8a6</div>
+        <div class="swatch-role">Accents, eyebrows, hero stats on dark canvas. Calmer than a brighter pastel — reads as serious infrastructure.</div>
+      </div>
+    </div>
+
+    <div class="swatch-group-label">Canvas surfaces</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #000000;"></div>
+        <div class="swatch-name">Absolute Black</div>
+        <div class="swatch-hex">#000000</div>
+        <div class="swatch-role">Immersive hero canvases. Dark pitch slides. In-CAD anchors.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #f5f5f7; border: 0.5px solid #d2d2d7;"></div>
+        <div class="swatch-name">Pale Neutral</div>
+        <div class="swatch-hex">#f5f5f7</div>
+        <div class="swatch-role">Main light surface. Feature bands, light pitch slides.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #ffffff; border: 0.5px solid #d2d2d7;"></div>
+        <div class="swatch-name">Pure White</div>
+        <div class="swatch-hex">#ffffff</div>
+        <div class="swatch-role">Editorial documents. Cards. Form surfaces.</div>
+      </div>
+    </div>
+
+    <div class="swatch-group-label">In-CAD graphite tier</div>
+    <div class="swatch-grid cols-4">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1e1e1f;"></div>
+        <div class="swatch-name">Graphite B</div>
+        <div class="swatch-hex">#1e1e1f</div>
+        <div class="swatch-role">CAD panel base. Matches CATIA chrome.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #272729;"></div>
+        <div class="swatch-name">Graphite A</div>
+        <div class="swatch-hex">#272729</div>
+        <div class="swatch-role">In-CAD card surface, one step elevated.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #28282b;"></div>
+        <div class="swatch-name">Graphite C</div>
+        <div class="swatch-hex">#28282b</div>
+        <div class="swatch-role">Modal overlay, query input shell.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #2a2a2c;"></div>
+        <div class="swatch-name">Graphite D</div>
+        <div class="swatch-hex">#2a2a2c</div>
+        <div class="swatch-role">Deepest elevated step.</div>
+      </div>
+    </div>
+
+    <div class="swatch-group-label">Text & borders</div>
+    <div class="swatch-grid cols-4">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1d1d1f;"></div>
+        <div class="swatch-name">Near-Black Ink</div>
+        <div class="swatch-hex">#1d1d1f</div>
+        <div class="swatch-role">Primary text on light.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #6e6e73;"></div>
+        <div class="swatch-name">Secondary Gray</div>
+        <div class="swatch-hex">#6e6e73</div>
+        <div class="swatch-role">Body secondary on light.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #86868b;"></div>
+        <div class="swatch-name">Mid Gray</div>
+        <div class="swatch-hex">#86868b</div>
+        <div class="swatch-role">Body secondary on dark. Field outlines.</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #d2d2d7;"></div>
+        <div class="swatch-name">Soft Border</div>
+        <div class="swatch-hex">#d2d2d7</div>
+        <div class="swatch-role">Dividers, card outlines.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     TYPOGRAPHY
+     ========================================================= -->
+<section id="typography">
+  <div class="container">
+    <div class="eyebrow">Section 02</div>
+    <h2>Typography.</h2>
+    <p class="lede" style="margin-bottom: 56px;">SF Pro Display for hero scales. SF Pro Text for body and dense UI. SF Mono for technical data — part numbers, tolerances, queries, source citations. Mono is meaning-bearing: switching to mono signals "this is precise data, not prose."</p>
+
+    <div class="demo-card" style="padding: 0;">
+      <div style="padding: 32px 32px 0;">
+        <div class="demo-label">Display ladder</div>
+      </div>
+      <div style="padding: 0 32px 16px;">
+
+        <div class="type-row">
+          <div class="type-sample" style="font-size: 80px; font-weight: 600; letter-spacing: -1.2px;">Hero XL</div>
+          <div class="type-meta"><strong>Hero Display XL</strong><br>80px · 600 · -1.2px<br>Pitch deck hero · marketing chapter intros</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample" style="font-size: 56px; font-weight: 600; letter-spacing: -0.28px;">Hero L</div>
+          <div class="type-meta"><strong>Hero Display L</strong><br>56px · 600 · -0.28px<br>Marketing site hero</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample" style="font-size: 48px; font-weight: 600; letter-spacing: -0.144px;">Section</div>
+          <div class="type-meta"><strong>Section Display</strong><br>48px · 600 · -0.144px<br>Major chapter headings</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample" style="font-size: 28px; font-weight: 600; letter-spacing: 0.196px;">Card title</div>
+          <div class="type-meta"><strong>Card Title</strong><br>28px · 600 · 0.196px<br>Tile-level naming, key copy</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample text-family" style="font-size: 17px; font-weight: 400;">Body primary — the standard reading size for marketing copy and product descriptions across the system.</div>
+          <div class="type-meta"><strong>Body Primary</strong><br>17px · 400 · -0.374px<br>SF Pro Text · standard body</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample text-family" style="font-size: 14px; font-weight: 400;">In-CAD body — slightly tighter for sustained reading inside the panel without strain.</div>
+          <div class="type-meta"><strong>In-CAD Body</strong><br>14px · 400 · -0.1px<br>SF Pro Text · in-CAD reading text</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample mono" style="font-size: 13px;">PN-7842-A3 · ±0.05mm · /mnt/cad/bracket.CATPart</div>
+          <div class="type-meta"><strong>Mono Data</strong><br>13–14px · 400 · 0<br>SF Mono · technical data</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-sample mono" style="font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);">EYEBROW LABEL</div>
+          <div class="type-meta"><strong>Eyebrow Label</strong><br>11px · 600 · 1.5px tracking<br>SF Mono · uppercase · accent color</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     COMPONENTS
+     ========================================================= -->
+<section id="components">
+  <div class="container">
+    <div class="eyebrow">Section 03</div>
+    <h2>Components.</h2>
+    <p class="lede" style="margin-bottom: 56px;">Capsule and pill geometry as signature action language. Cards stay flat — no shadows, only border-led containment.</p>
+
+    <div class="demo-card">
+      <div class="demo-label">Buttons</div>
+      <div class="btn-row">
+        <button class="btn btn-primary">Primary action</button>
+        <button class="btn btn-primary-dark">Primary on dark</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <button class="btn btn-pill">Capsule pill</button>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-label">Eyebrow labels</div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div class="eyebrow-demo" style="color: var(--teal-primary);">SECTION · LIGHT CANVAS · #0F766E</div>
+        <div class="eyebrow-demo" style="color: var(--teal-high);">SECTION · DARK CANVAS · #14B8A6</div>
+        <div class="eyebrow-demo" style="color: var(--text-secondary);">SECTION · NEUTRAL · USE WHEN ACCENT WOULD COMPETE</div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-label">Inline links in body copy</div>
+      <p style="font-size: 15px; color: var(--text-primary); line-height: 1.7; max-width: 720px;">A Design Release Engineer at Toyota or Rivian spends nearly half their day on indirect work — <a href="#" class="link-demo">hunting for information</a>, verifying standards, and tracking down the reason <a href="#" class="link-demo">a tolerance was chosen</a> five years ago.</p>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-label">Featured card (e.g. enterprise pricing tier)</div>
+      <div style="max-width: 280px;">
+        <div class="feature-card">
+          <div class="feature-card-label">ENTERPRISE</div>
+          <div class="feature-card-stat">$480K</div>
+          <div class="feature-card-sub">Annual contract value · 400+ seats</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE TEMPLATES
+     ========================================================= -->
+<section id="slides">
+  <div class="container">
+    <div class="eyebrow">Section 04</div>
+    <h2>Slide canvas rhythm.</h2>
+    <p class="lede" style="margin-bottom: 56px;">Pitch decks follow a binary chapter rhythm: dark immersive scenes alternating with light readable scenes. Roughly 60% dark, 40% light, in chapters of 1–3 slides. Same color tokens throughout — only the canvas switches.</p>
+
+    <div class="slide-grid">
+      <div class="slide slide-dark">
+        <div class="slide-eyebrow">THE PROBLEM</div>
+        <div class="slide-stat">50%</div>
+        <div class="slide-headline">of engineering time is lost to non-value-added work.</div>
+        <div class="slide-source">Source: CoLab, 2024</div>
+        <div class="slide-page">02 / 18</div>
+      </div>
+
+      <div class="slide slide-light">
+        <div class="slide-eyebrow">UNIT ECONOMICS</div>
+        <div class="slide-stat">$480K</div>
+        <div class="slide-headline">Enterprise ACV target. 109× LTV:CAC.</div>
+        <div class="slide-source">Internal model · 2026</div>
+        <div class="slide-page">11 / 18</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     QUICK RULES TABLE
+     ========================================================= -->
+<section id="rules">
+  <div class="container">
+    <div class="eyebrow">Section 05</div>
+    <h2>Decision rules.</h2>
+    <p class="lede" style="margin-bottom: 56px;">When you reach for a color, this is the lookup. Eyebrow, hero stat, body, and source citation each have a deterministic answer per canvas.</p>
+
+    <div class="demo-card" style="padding: 0; overflow: hidden;">
+      <table class="rules-table">
+        <thead>
+          <tr>
+            <th>When you need…</th>
+            <th>Dark slide</th>
+            <th>Light slide</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Eyebrow / accent label</td><td class="mono-cell">#14b8a6</td><td class="mono-cell">#0f766e</td></tr>
+          <tr><td>Hero number / stat</td><td class="mono-cell">#14b8a6</td><td class="mono-cell">#0f766e</td></tr>
+          <tr><td>Headline</td><td class="mono-cell">#f5f5f7</td><td class="mono-cell">#1d1d1f</td></tr>
+          <tr><td>Body / description</td><td class="mono-cell">#86868b</td><td class="mono-cell">#6e6e73</td></tr>
+          <tr><td>Source citation · page #</td><td class="mono-cell">#86868b · mono</td><td class="mono-cell">#6e6e73 · mono</td></tr>
+          <tr><td>Standard card</td><td class="mono-cell">#272729 fill</td><td class="mono-cell">#ffffff + #d2d2d7 border</td></tr>
+          <tr><td>Featured / highlighted card</td><td class="mono-cell">accent border + #14b8a6</td><td class="mono-cell">#0f766e fill + #ffffff text</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top: 56px; margin-bottom: 24px;">Watch for these mistakes.</h3>
+    <div class="rules-grid">
+      <div class="rule-card dont">
+        <div class="rule-tag">Don't</div>
+        <p>Use #14b8a6 on a light canvas.</p>
+        <p class="rule-detail">Washes out — looks like a faded sticker. Use #0f766e on light.</p>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-tag">Don't</div>
+        <p>Use #0f766e on a dark canvas.</p>
+        <p class="rule-detail">Disappears against black. Use #14b8a6 on dark.</p>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-tag">Don't</div>
+        <p>Use pure white #fff for headlines on dark.</p>
+        <p class="rule-detail">Too harsh. Use #f5f5f7 — softer, calibrated to the system.</p>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-tag">Don't</div>
+        <p>Add a second color besides teal.</p>
+        <p class="rule-detail">No purple, orange, blue, red. Hierarchy collapses if everything competes.</p>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-tag">Don't</div>
+        <p>Color body text with teal.</p>
+        <p class="rule-detail">Teal is for accent only — eyebrows, hero stats, dividers, featured fills.</p>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-tag">Don't</div>
+        <p>Use sans-serif for source citations.</p>
+        <p class="rule-detail">Citations, page numbers, eyebrows, technical data → mono. Always.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <span>DesignFlowAI · Design system · v0.2 · April 2026</span>
+      <span>Hiroki Ogasawara · Rowell Castro</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  (function () {
+    const root = document.documentElement;
+    const btnLight = document.getElementById('btn-light');
+    const btnDark = document.getElementById('btn-dark');
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      btnLight.classList.toggle('active', theme === 'light');
+      btnDark.classList.toggle('active', theme === 'dark');
+      try { localStorage.setItem('dfai-theme', theme); } catch (e) {}
+    }
+    btnLight.addEventListener('click', function () { setTheme('light'); });
+    btnDark.addEventListener('click', function () { setTheme('dark'); });
+    // Restore saved preference
+    try {
+      const saved = localStorage.getItem('dfai-theme');
+      if (saved === 'light' || saved === 'dark') setTheme(saved);
+    } catch (e) {}
+  })();
+</script>
+
+</body>
+</html>
