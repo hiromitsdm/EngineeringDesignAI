@@ -5,39 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DesignFlowAI — Engineering Knowledge Intelligence for CAD</title>
   <meta name="description" content="AI-powered knowledge retrieval and intelligent layer for CAD. Connecting DFM guidelines, lessons learned, and design standards directly to your geometry."/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231a4a52'/></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d9488'/></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-alt: #f5f5f7;
-      --surface: #ffffff;
-      --border: rgba(0,0,0,0.08);
-      --accent: #1a4a52;
-      --accent-hover: #235f6e;
-      --text: #1d1d1f;
-      --text-secondary: #6e6e73;
-      --text-tertiary: #6e6e73;
-      --display: 'Inter', sans-serif;
-      --body: 'IBM Plex Mono', monospace;
-      --radius: 18px;
-      --radius-sm: 10px;
-      --shadow: 0 2px 12px rgba(0,0,0,0.06), 0 0 1px rgba(0,0,0,0.08);
-      --shadow-md: 0 8px 32px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.08);
+      /* Canvases */
+      --bg-dark:    #000000;
+      --bg-light:   #f5f5f7;
+      --bg-white:   #ffffff;
+
+      /* In-CAD graphite surfaces */
+      --graphite-a: #272729;
+      --graphite-b: #1e1e1f;
+      --graphite-c: #28282b;
+      --graphite-d: #2a2a2c;
+
+      /* Text — light canvas */
+      --ink:        #1d1d1f;
+      --text-2:     #6e6e73;
+
+      /* Text — dark canvas */
+      --text-dark:   #f5f5f7;
+      --text-dark-2: #86868b;
+
+      /* Accent */
+      --teal:        #0d9488;   /* primary action, light canvas */
+      --teal-link:   #0f766e;   /* inline links, light canvas */
+      --teal-bright: #2dd4bf;   /* accent, dark canvas */
+      --teal-deep:   #0d3d35;   /* text on bright-teal button */
+
+      /* Borders */
+      --border-soft: #d2d2d7;
+      --border-mid:  #86868b;
+      --border-dark: #2a2a2c;
+
+      /* Fonts */
+      --font-display: 'SF Pro Display', 'Inter Tight', Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-text:    'SF Pro Text', Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono:    'SF Mono', 'JetBrains Mono', ui-monospace, Menlo, Monaco, monospace;
+
+      /* Radius scale */
+      --r-xs:   4px;
+      --r-sm:   6px;
+      --r-md:   8px;
+      --r-lg:   12px;
+      --r-xl:   18px;
+      --r-2xl:  28px;
+      --r-pill: 980px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      font-family: var(--font-text);
       font-size: 17px;
-      line-height: 1.6;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -47,27 +75,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 24px;
+      padding: 0 32px;
       height: 52px;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.85);
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       z-index: 100;
     }
 
     .nav-logo {
-      font-family: var(--display);
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-weight: 600;
       font-size: 17px;
       letter-spacing: -0.3px;
-      color: var(--text);
+      color: var(--text-dark);
       text-decoration: none;
     }
 
-    .nav-logo span { color: var(--accent); }
+    .nav-logo span { color: var(--teal-bright); }
 
     .nav-links {
       display: flex;
@@ -77,32 +105,30 @@
     }
 
     .nav-links a {
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       text-decoration: none;
+      font-family: var(--font-text);
       font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
+      font-weight: 400;
+      transition: color 0.15s;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--text-dark); }
 
     .nav-cta {
-      background: var(--accent) !important;
+      background: var(--teal) !important;
       color: #fff !important;
       padding: 7px 16px;
-      border-radius: 980px;
+      border-radius: var(--r-pill);
+      font-family: var(--font-text) !important;
       font-size: 13px !important;
       font-weight: 600 !important;
-      transition: background 0.2s, transform 0.15s !important;
+      transition: opacity 0.15s !important;
     }
 
-    .nav-cta:hover {
-      background: var(--accent-hover) !important;
-      color: #fff !important;
-      transform: none;
-    }
+    .nav-cta:hover { opacity: 0.85 !important; color: #fff !important; }
 
-    /* ── HERO ── */
+    /* ── HERO (dark) ── */
     #hero {
       min-height: 88vh;
       display: flex;
@@ -111,57 +137,60 @@
       align-items: center;
       text-align: center;
       padding: 80px 24px 60px;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,113,227,0.07) 0%, transparent 70%);
+      background: var(--bg-dark);
     }
 
-    .hero-tag {
+    .hero-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--accent);
-      background: rgba(26,74,82,0.08);
-      border: 1px solid rgba(26,74,82,0.2);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal-bright);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(45, 212, 191, 0.35);
       padding: 5px 14px;
-      border-radius: 980px;
+      border-radius: var(--r-pill);
       margin-bottom: 32px;
       animation: fadeUp 0.7s ease both;
     }
 
-    .hero-tag::before {
+    .hero-eyebrow::before {
       content: '';
       width: 6px;
       height: 6px;
-      background: var(--accent);
+      background: var(--teal-bright);
       border-radius: 50%;
       animation: pulse 2.5s infinite;
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.75); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
     }
 
     h1 {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(44px, 7vw, 88px);
-      line-height: 1.03;
-      letter-spacing: -2.5px;
-      color: var(--text);
-      max-width: 880px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(40px, 5.5vw, 56px);
+      line-height: 1.07;
+      letter-spacing: -0.28px;
+      color: var(--text-dark);
+      max-width: 820px;
       animation: fadeUp 0.7s 0.08s ease both;
     }
 
-    h1 .accent { color: var(--accent); }
+    h1 .accent { color: var(--teal-bright); }
 
     .hero-sub {
-      font-size: clamp(17px, 2vw, 21px);
-      color: var(--text-secondary);
-      max-width: 600px;
+      font-family: var(--font-text);
+      font-size: 19px;
+      color: var(--text-dark-2);
+      max-width: 580px;
       margin-top: 24px;
-      line-height: 1.55;
+      line-height: 1.45;
       font-weight: 400;
       animation: fadeUp 0.7s 0.16s ease both;
     }
@@ -175,39 +204,41 @@
       animation: fadeUp 0.7s 0.24s ease both;
     }
 
+    /* Primary CTA — dark canvas */
     .btn-primary {
-      background: var(--accent);
-      color: #fff;
+      background: var(--teal-bright);
+      color: var(--teal-deep);
       padding: 14px 28px;
       border: none;
-      border-radius: 980px;
-      font-family: var(--body);
+      border-radius: var(--r-pill);
+      font-family: var(--font-text);
       font-size: 17px;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+      transition: opacity 0.15s, transform 0.15s;
       display: inline-block;
     }
 
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
+    /* Ghost CTA — dark canvas */
     .btn-secondary {
-      background: rgba(0,0,0,0.06);
-      color: var(--text);
+      background: transparent;
+      color: var(--teal-bright);
       padding: 14px 28px;
-      border: none;
-      border-radius: 980px;
-      font-family: var(--body);
+      border: 1px solid var(--teal-bright);
+      border-radius: var(--r-pill);
+      font-family: var(--font-text);
       font-size: 17px;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.15s;
       display: inline-block;
     }
 
-    .btn-secondary:hover { background: rgba(0,0,0,0.1); }
+    .btn-secondary:hover { background: rgba(45, 212, 191, 0.08); }
 
     .hero-stats {
       display: flex;
@@ -215,84 +246,83 @@
       margin-top: 72px;
       width: 100%;
       max-width: 820px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border: 1px solid var(--graphite-d);
+      border-radius: var(--r-xl);
       overflow: hidden;
-      background: var(--surface);
-      box-shadow: var(--shadow);
+      background: var(--graphite-a);
       animation: fadeUp 0.7s 0.32s ease both;
     }
 
     .stat-item {
       flex: 1;
       padding: 28px 24px;
-      border-right: 1px solid var(--border);
+      border-right: 1px solid var(--graphite-d);
       text-align: center;
     }
 
     .stat-item:last-child { border-right: none; }
 
     .stat-num {
-      font-family: var(--display);
+      font-family: var(--font-display);
       font-size: 34px;
-      font-weight: 800;
+      font-weight: 600;
       letter-spacing: -1px;
-      color: var(--text);
+      color: var(--teal-bright);
       line-height: 1;
     }
 
     .stat-label {
+      font-family: var(--font-text);
       font-size: 12px;
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       margin-top: 8px;
       line-height: 1.45;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── SECTION BASE ── */
     .section {
       padding: 100px 24px;
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .section-tag {
-      font-size: 13px;
+    /* ── EYEBROW LABELS ── */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.01em;
-      color: var(--accent);
-      margin-bottom: 14px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      margin-bottom: 16px;
     }
 
+    .eyebrow-dark  { color: var(--teal-bright); }
+    .eyebrow-light { color: var(--teal); }
+
+    /* ── HEADINGS ── */
     h2 {
-      font-family: var(--display);
-      font-size: clamp(32px, 4.5vw, 52px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.144px;
       line-height: 1.08;
-      color: var(--text);
       max-width: 680px;
       margin-bottom: 20px;
     }
 
-    .section-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
+    h2.on-dark  { color: var(--text-dark); }
+    h2.on-light { color: var(--ink); }
 
-    /* ── PROBLEM ── */
-    #problem { background: var(--bg-alt); }
-    #problem .section { max-width: 1080px; }
+    /* ── PROBLEM (dark) ── */
+    #problem { background: var(--bg-dark); }
 
-    #problem .problem-grid {
+    .problem-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 56px;
@@ -301,8 +331,9 @@
     }
 
     .problem-lead {
+      font-family: var(--font-text);
       font-size: 17px;
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       line-height: 1.7;
       margin-bottom: 20px;
     }
@@ -314,56 +345,57 @@
     }
 
     .problem-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--graphite-a);
+      border: 1px solid var(--graphite-d);
       padding: 24px 28px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border-radius: var(--r-lg);
     }
 
     .problem-card .num {
-      font-family: var(--display);
+      font-family: var(--font-display);
       font-size: 30px;
-      font-weight: 800;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--teal-bright);
       letter-spacing: -0.5px;
       line-height: 1;
     }
 
     .problem-card .desc {
+      font-family: var(--font-text);
       font-size: 14px;
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       margin-top: 8px;
       line-height: 1.6;
     }
 
-    /* ── PRODUCT ── */
-    #product { background: var(--bg); }
-    #product .section { max-width: 1080px; }
+    /* ── PRODUCT (dark) ── */
+    #product {
+      background: var(--bg-dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
 
     .product-intro {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 72px;
       align-items: start;
-      margin-bottom: 0;
       margin-top: 52px;
     }
 
     .product-desc {
+      font-family: var(--font-text);
       font-size: 17px;
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       line-height: 1.75;
     }
 
     .product-layers {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      background: var(--bg-alt);
-      border-radius: var(--radius);
+      background: var(--graphite-a);
+      border-radius: var(--r-xl);
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid var(--graphite-d);
     }
 
     .layer {
@@ -371,66 +403,66 @@
       align-items: flex-start;
       gap: 18px;
       padding: 24px 28px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-      transition: background 0.2s;
+      border-bottom: 1px solid var(--graphite-d);
+      transition: background 0.15s;
     }
 
     .layer:last-child { border-bottom: none; }
-    .layer:hover { background: var(--bg-alt); }
+    .layer:hover { background: var(--graphite-c); }
 
     .layer-num {
-      font-family: var(--display);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.06em;
-      min-width: 28px;
-      padding-top: 3px;
-      background: rgba(26,74,82,0.08);
-      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal-bright);
+      letter-spacing: 0.5px;
+      background: rgba(45, 212, 191, 0.1);
+      border-radius: var(--r-sm);
       padding: 4px 8px;
-      text-align: center;
+      white-space: nowrap;
     }
 
     .layer-content { flex: 1; }
 
     .layer-title {
-      font-family: var(--display);
+      font-family: var(--font-text);
       font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--text-dark);
       margin-bottom: 4px;
     }
 
     .layer-desc {
+      font-family: var(--font-text);
       font-size: 13px;
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       line-height: 1.6;
     }
 
     .layer-status {
+      font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 600;
+      letter-spacing: 0.5px;
       padding: 4px 10px;
-      border-radius: 980px;
+      border-radius: var(--r-pill);
       white-space: nowrap;
       align-self: flex-start;
       margin-top: 2px;
     }
 
     .status-active {
-      background: rgba(52,199,89,0.1);
-      color: #1a7f3c;
+      background: rgba(22, 163, 74, 0.15);
+      color: #4ade80;
     }
 
     .status-next {
-      background: rgba(0,0,0,0.06);
-      color: var(--text-tertiary);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-dark-2);
     }
 
-    /* ── TEAM ── */
-    #team { background: var(--bg-alt); }
+    /* ── TEAM (light) ── */
+    #team { background: var(--bg-light); }
 
     .team-grid {
       display: grid;
@@ -440,40 +472,41 @@
     }
 
     .team-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--bg-white);
+      border: 1px solid var(--border-soft);
       padding: 36px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border-radius: var(--r-xl);
       transition: box-shadow 0.25s, transform 0.25s;
     }
 
     .team-card:hover {
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
       transform: translateY(-2px);
     }
 
     .team-name {
-      font-family: var(--display);
+      font-family: var(--font-display);
       font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--ink);
       letter-spacing: -0.3px;
       margin-bottom: 4px;
     }
 
     .team-role {
-      font-size: 13px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--accent);
+      letter-spacing: 1.5px;
+      color: var(--teal);
       margin-bottom: 18px;
     }
 
     .team-bio {
+      font-family: var(--font-text);
       font-size: 15px;
-      color: var(--text-secondary);
+      color: var(--text-2);
       line-height: 1.7;
     }
 
@@ -485,18 +518,18 @@
     }
 
     .team-tag {
+      font-family: var(--font-text);
       font-size: 12px;
       font-weight: 500;
-      color: var(--text-secondary);
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
+      color: var(--text-2);
+      background: var(--bg-light);
+      border: 1px solid var(--border-soft);
       padding: 4px 12px;
-      border-radius: 980px;
+      border-radius: var(--r-pill);
     }
 
-    /* ── TRACTION ── */
-    #traction { background: var(--bg); }
-    #traction .section { max-width: 1080px; }
+    /* ── TRACTION (dark) ── */
+    #traction { background: var(--bg-dark); }
 
     .traction-list {
       display: flex;
@@ -510,24 +543,23 @@
       align-items: flex-start;
       gap: 20px;
       padding: 28px 32px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: box-shadow 0.2s, transform 0.2s;
+      background: var(--graphite-a);
+      border: 1px solid var(--graphite-d);
+      border-radius: var(--r-lg);
+      transition: background 0.15s, transform 0.2s;
     }
 
     .traction-item:hover {
-      box-shadow: var(--shadow-md);
+      background: var(--graphite-c);
       transform: translateY(-1px);
     }
 
     .traction-icon {
       width: 44px;
       height: 44px;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      background: rgba(45, 212, 191, 0.08);
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      border-radius: var(--r-lg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -536,25 +568,29 @@
     }
 
     .traction-title {
-      font-family: var(--display);
+      font-family: var(--font-text);
       font-size: 17px;
-      font-weight: 700;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--text-dark);
       margin-bottom: 6px;
       letter-spacing: -0.2px;
     }
 
     .traction-desc {
+      font-family: var(--font-text);
       font-size: 15px;
-      color: var(--text-secondary);
+      color: var(--text-dark-2);
       line-height: 1.65;
     }
 
-    /* ── CONTACT ── */
-    #contact { background: var(--bg-alt); padding: 100px 24px; }
+    /* ── CONTACT (light) ── */
+    #contact {
+      background: var(--bg-light);
+      padding: 100px 24px;
+    }
 
     .contact-wrap {
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -565,8 +601,9 @@
     .contact-copy h2 { max-width: 380px; }
 
     .contact-copy p {
+      font-family: var(--font-text);
       font-size: 17px;
-      color: var(--text-secondary);
+      color: var(--text-2);
       line-height: 1.7;
       margin-top: 16px;
       max-width: 400px;
@@ -580,13 +617,14 @@
     }
 
     .badge {
+      font-family: var(--font-text);
       font-size: 13px;
       font-weight: 500;
-      color: var(--text-secondary);
-      background: var(--surface);
-      border: 1px solid var(--border);
+      color: var(--text-2);
+      background: var(--bg-white);
+      border: 1px solid var(--border-soft);
       padding: 6px 14px;
-      border-radius: 980px;
+      border-radius: var(--r-pill);
     }
 
     /* ── FORM ── */
@@ -594,11 +632,11 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--bg-white);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-xl);
       padding: 36px;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
 
     .form-row {
@@ -614,41 +652,41 @@
     }
 
     .form-group label {
+      font-family: var(--font-text);
       font-size: 13px;
       font-weight: 600;
-      color: var(--text);
+      color: var(--ink);
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      background: var(--bg-white);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-md);
       padding: 12px 16px;
-      font-family: var(--body);
-      font-size: 15px;
-      color: var(--text);
+      font-family: var(--font-text);
+      font-size: 17px;
+      color: var(--ink);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.15s, box-shadow 0.15s;
       width: 100%;
       appearance: none;
     }
 
     .form-group input::placeholder,
     .form-group textarea::placeholder {
-      color: var(--text-tertiary);
+      color: var(--text-2);
     }
 
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(26,74,82,0.15);
-      background: var(--surface);
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px var(--teal);
     }
 
-    .form-group select option { background: var(--surface); }
+    .form-group select option { background: var(--bg-white); }
 
     .form-group textarea {
       resize: vertical;
@@ -656,25 +694,26 @@
     }
 
     .form-submit {
-      background: var(--accent);
+      background: var(--teal);
       color: #fff;
       padding: 14px 28px;
       border: none;
-      border-radius: 980px;
-      font-family: var(--body);
+      border-radius: var(--r-pill);
+      font-family: var(--font-text);
       font-size: 17px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      transition: opacity 0.15s, transform 0.15s;
       width: 100%;
       margin-top: 4px;
     }
 
-    .form-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
 
     .form-note {
+      font-family: var(--font-text);
       font-size: 13px;
-      color: var(--text-tertiary);
+      color: var(--text-2);
       text-align: center;
     }
 
@@ -683,49 +722,54 @@
       display: none;
       text-align: center;
       padding: 56px 24px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--bg-white);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-xl);
     }
 
     .form-success.show { display: block; }
 
     .form-success h3 {
-      font-family: var(--display);
+      font-family: var(--font-display);
       font-size: 26px;
-      font-weight: 700;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--ink);
       margin-bottom: 12px;
       letter-spacing: -0.3px;
     }
 
-    .form-success p { color: var(--text-secondary); font-size: 15px; }
+    .form-success p {
+      font-family: var(--font-text);
+      color: var(--text-2);
+      font-size: 15px;
+    }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-soft);
       padding: 28px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
-      background: var(--bg);
+      background: var(--bg-white);
     }
 
     .footer-logo {
-      font-family: var(--display);
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-weight: 600;
       font-size: 16px;
-      color: var(--text-secondary);
+      color: var(--text-2);
       letter-spacing: -0.2px;
     }
 
-    .footer-logo span { color: var(--accent); }
+    .footer-logo span { color: var(--teal); }
 
     .footer-copy {
+      font-family: var(--font-text);
       font-size: 13px;
-      color: var(--text-tertiary);
+      color: var(--text-2);
     }
 
     .footer-links {
@@ -735,13 +779,14 @@
     }
 
     .footer-links a {
+      font-family: var(--font-text);
       font-size: 13px;
-      color: var(--text-secondary);
+      color: var(--text-2);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.15s;
     }
 
-    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:hover { color: var(--teal); }
 
     /* ── SCROLL REVEAL ── */
     .reveal {
@@ -760,12 +805,12 @@
       nav { padding: 0 16px; }
       .nav-links { display: none; }
       #hero { min-height: 70vh; padding: 64px 20px 48px; }
-      h1 { letter-spacing: -1.5px; }
-      .hero-stats { flex-direction: column; border-radius: var(--radius); }
-      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      h1 { font-size: clamp(36px, 8vw, 48px); }
+      .hero-stats { flex-direction: column; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--graphite-d); }
       .stat-item:last-child { border-bottom: none; }
       .section { padding: 72px 20px; }
-      #problem .problem-grid { grid-template-columns: 1fr; gap: 36px; }
+      .problem-grid { grid-template-columns: 1fr; gap: 36px; }
       .product-intro { grid-template-columns: 1fr; gap: 36px; margin-top: 36px; }
       .team-grid { grid-template-columns: 1fr; }
       .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
@@ -790,9 +835,9 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO (dark) -->
   <section id="hero">
-    <div class="hero-tag">MIT Sandbox Backed · Engineering Knowledge &amp; CAD Integration</div>
+    <div class="hero-eyebrow">MIT Sandbox Backed · Engineering Knowledge &amp; CAD Integration</div>
     <h1>
       Engineering knowledge,<br/>
       <span class="accent">wired to your geometry.</span>
@@ -826,20 +871,18 @@
     </div>
   </section>
 
-  <hr class="section-divider"/>
-
-  <!-- PROBLEM -->
+  <!-- PROBLEM (dark) -->
   <section id="problem">
     <div class="section reveal">
-      <div class="section-tag">The Problem</div>
-      <h2>The knowledge is there.<br/>Finding it is the problem.</h2>
+      <div class="eyebrow eyebrow-dark">The Problem</div>
+      <h2 class="on-dark">The knowledge is there.<br/>Finding it is the problem.</h2>
       <div class="problem-grid">
         <div>
           <p class="problem-lead">
             Design Release Engineers in Automobile, Consumer Electronics, Aerospace, etc. spend a
             significant part of every day on indirect work — hunting across PLM systems,
             shared drives, legacy PDFs, and tribal memory for knowledge that already
-            exists somewhere in the organization, while spinning their CAD to understand 
+            exists somewhere in the organization, while spinning their CAD to understand
             which information is relevant to their parts.
           </p>
           <p class="problem-lead">
@@ -862,13 +905,11 @@
     </div>
   </section>
 
-  <hr class="section-divider"/>
-
-  <!-- PRODUCT -->
+  <!-- PRODUCT (dark) -->
   <section id="product">
     <div class="section reveal">
-      <div class="section-tag">The Product</div>
-      <h2>Contextual design intelligence, inside your CAD environment.</h2>
+      <div class="eyebrow eyebrow-dark">The Product</div>
+      <h2 class="on-dark">Contextual design intelligence, inside your CAD environment.</h2>
 
       <div class="product-intro">
         <p class="product-desc">
@@ -913,13 +954,11 @@
     </div>
   </section>
 
-  <hr class="section-divider"/>
-
-  <!-- TEAM -->
+  <!-- TEAM (light) -->
   <section id="team">
     <div class="section reveal">
-      <div class="section-tag">The Team</div>
-      <h2>Built by engineers who lived the problem with technical depth.</h2>
+      <div class="eyebrow eyebrow-light">The Team</div>
+      <h2 class="on-light">Built by engineers who lived the problem with technical depth.</h2>
 
       <div class="team-grid">
         <div class="team-card">
@@ -932,12 +971,12 @@
             Recipient of the 2024 MIT SDM Award for Leadership, Innovation, and Systems Thinking.
           </p>
           <div class="team-tags">
-            <span class="team-tag">Toyota & Apple · 10 yrs</span>
+            <span class="team-tag">Toyota &amp; Apple · 10 yrs</span>
             <span class="team-tag">Design Engineer</span>
             <span class="team-tag">CATIA · NX Expert</span>
             <span class="team-tag">MIT SDM + EECS</span>
           </div>
-          <a href="https://www.linkedin.com/in/hiroki-ogasawara/" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;">LinkedIn →</a>
+          <a href="https://www.linkedin.com/in/hiroki-ogasawara/" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px;font-size:14px;font-weight:600;color:var(--teal-link);text-decoration:none;">LinkedIn →</a>
         </div>
         <div class="team-card">
           <div class="team-name">Rowell Castro</div>
@@ -945,8 +984,8 @@
           <p class="team-bio">
             Dual MIT master's degrees in SDM and EECS. 9+ years at Shell, most recently
             as Digital Innovations Manager — two Royal Dutch Shell VP Awards for analytics
-            innovation. MIT thesis addresses semantic learning over engineering design—directly 
-            informing how DesignFlowAI structures and reasons over domain knowledge.
+            innovation. MIT thesis addresses semantic learning over engineering design —
+            directly informing how DesignFlowAI structures and reasons over domain knowledge.
           </p>
           <div class="team-tags">
             <span class="team-tag">Shell · 9 yrs</span>
@@ -955,25 +994,23 @@
             <span class="team-tag">2× Shell VP Award</span>
             <span class="team-tag">MIT SDM + EECS</span>
           </div>
-          <a href="https://www.linkedin.com/in/rowelldgcastro/" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;">LinkedIn →</a>
+          <a href="https://www.linkedin.com/in/rowelldgcastro/" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px;font-size:14px;font-weight:600;color:var(--teal-link);text-decoration:none;">LinkedIn →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="section-divider"/>
-
-  <!-- TRACTION -->
+  <!-- TRACTION (dark) -->
   <section id="traction">
     <div class="section reveal">
-      <div class="section-tag">Traction</div>
-      <h2>From discovery to demonstration — the feedback is consistent.</h2>
+      <div class="eyebrow eyebrow-dark">Traction</div>
+      <h2 class="on-dark">From discovery to demonstration — the feedback is consistent.</h2>
       <div class="traction-list">
         <div class="traction-item">
           <div class="traction-icon">🏭</div>
           <div class="traction-text">
             <div class="traction-title">OEMs and Suppliers engagement</div>
-            <div class="traction-desc">Active interest from engineers and a director at automobile companies and suppliers, following prototype demonstrations. Engineering and leadership stakeholders at the organizations confirmed the problem and expressed interest in piloting.</div>
+            <div class="traction-desc">Active interest from engineers and a director at automobile companies and suppliers, following prototype demonstrations. Engineering and leadership stakeholders confirmed the problem and expressed interest in piloting.</div>
           </div>
         </div>
         <div class="traction-item">
@@ -987,7 +1024,7 @@
           <div class="traction-icon">⚙️</div>
           <div class="traction-text">
             <div class="traction-title">Working prototypes</div>
-            <div class="traction-desc">Core knowledge retrieval layer and automated geometric changes operational and demonstrated. Building our first MVBP that intergrates them and provides value to users.</div>
+            <div class="traction-desc">Core knowledge retrieval layer and automated geometric changes operational and demonstrated. Building our first MVBP that integrates them and provides value to users.</div>
           </div>
         </div>
         <div class="traction-item">
@@ -1001,14 +1038,12 @@
     </div>
   </section>
 
-  <hr class="section-divider"/>
-
-  <!-- CONTACT -->
+  <!-- CONTACT (light) -->
   <section id="contact">
     <div class="contact-wrap reveal">
       <div class="contact-copy">
-        <div class="section-tag">Get In Touch</div>
-        <h2>Request a demo or discuss a pilot.</h2>
+        <div class="eyebrow eyebrow-light">Get In Touch</div>
+        <h2 class="on-light">Request a demo or discuss a pilot.</h2>
         <p>
           We are actively running pilots with design engineering teams at automotive OEMs
           and suppliers. If you are a design engineer, engineering director, or investor — we want
@@ -1071,14 +1106,12 @@
   <footer>
     <div class="footer-logo">DesignFlow<span>AI</span></div>
     <ul class="footer-links">
-      <!-- <li><a href="https://github.com/hiromitsdm/EngineeringDesignAI" target="_blank">GitHub</a></li> -->
       <li><a href="mailto:hoga@mit.edu">Contact</a></li>
     </ul>
     <div class="footer-copy">© 2026 DesignFlowAI. MIT Sandbox Backed.</div>
   </footer>
 
   <script>
-    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1090,21 +1123,19 @@
     }, { threshold: 0.08 });
     reveals.forEach(r => observer.observe(r));
 
-    // Form submit — uses mailto as fallback (replace with Formspree endpoint)
     function handleSubmit() {
       const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const company = document.getElementById('company').value.trim();
-      const role = document.getElementById('role').value;
-      const message = document.getElementById('message').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const company   = document.getElementById('company').value.trim();
+      const role      = document.getElementById('role').value;
+      const message   = document.getElementById('message').value.trim();
 
       if (!firstName || !email) {
         alert('Please enter your name and email.');
         return;
       }
 
-      // Replace with your Formspree endpoint: https://formspree.io/f/YOUR_ID
       const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xreyjnar';
 
       if (FORMSPREE_ENDPOINT !== 'https://formspree.io/f/xreyjnar') {
@@ -1112,13 +1143,10 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ firstName, lastName, email, company, role, message })
-        }).then(r => {
-          if (r.ok) showSuccess();
-        });
+        }).then(r => { if (r.ok) showSuccess(); });
       } else {
-        // Fallback: open mail client
         const subject = encodeURIComponent('DesignFlowAI Demo Request');
-        const body = encodeURIComponent(
+        const body    = encodeURIComponent(
           `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\nRole: ${role}\n\n${message}`
         );
         window.location.href = `mailto:ogasawarahiroki631014@gmail.com?subject=${subject}&body=${body}`;
