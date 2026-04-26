@@ -1,10 +1,10 @@
 # DesignFlowAI Design System
 
-*Version: 0.4 (draft) — Last updated: April 2026*
+*Version: 0.3 (draft) — Last updated: April 2026*
 
 > **Scope:** This system covers three surfaces — the marketing/investor website, the in-CAD product UI (CATIA/NX sidecar panel), and pitch deck/presentation materials. Same DNA across all three; surface density and canvas rhythm change to match context.
 
-> **Foundation:** This system is adapted from a precision-editorial language inspired by Apple's web grammar. The neutral cadence, capsule action geometry, and restrained chrome are kept. The blue accent family is replaced with a navy + blue accent system: deep navy as the primary brand color on light surfaces, mid-luminance blue as the accent on graphite dark canvases. Monospace typography is added for technical data — a category Apple does not need to handle.
+> **Foundation:** This system is adapted from a precision-editorial language inspired by Apple's web grammar. The neutral cadence, capsule action geometry, and restrained chrome are kept. The blue accent family is replaced with a teal accent family. Monospace typography is added for technical data — a category Apple does not need to handle.
 
 ---
 
@@ -21,29 +21,29 @@ The system runs in **three gears**, with shared tokens but different density and
 Typography is the stabilizer across all three gears. SF Pro Display carries hero and product-name hierarchy. SF Pro Text handles body, navigation, and dense UI. SF Mono handles technical data — part numbers, tolerances, queries, file paths.
 
 **Key Characteristics:**
-- Binary canvas rhythm: graphite scenes (`#272729`) alternating with pale neutral fields (`#f5f5f7`)
-- Single navy + blue accent system for action and link semantics (`#00233f`, `#003c66`, `#0369ce`)
+- Binary canvas rhythm: deep black scenes (`#000000`) alternating with pale neutral fields (`#f5f5f7`)
+- Single teal accent family for action and link semantics (`#0f766e`, `#134e4a`, `#14b8a6`)
 - Three operating gears in one system: showcase, utility, editorial
 - Heavy reliance on product imagery and CAD geometry; UI chrome stays visually thin
 - Tight headline metrics paired with compact body. Monospace reserved for technical data only (part numbers, tolerances, file paths, source citations) — not for editorial labels.
 - Pill and capsule geometry as signature action language (`8px` to `980px` and circular controls)
 - Depth used sparingly; contrast and surface separation do most of the layering work
-- Multi-context rhythm: graphite immersive chapters → pale neutral feature bands → utility white retail surfaces → graphite micro-surfaces for in-CAD controls
+- Multi-context rhythm: dark immersive chapters → pale neutral feature bands → utility white retail surfaces → dark micro-surfaces for in-CAD controls
 
 ---
 
 ## 2. Color Palette & Roles
 
-### Primary Surfaces
-- **Graphite Canvas** (`#272729`): Dark immersive canvases, dark pitch slides, in-CAD panel default background. Softer than pure black — reads as "premium product page" rather than "keynote drama."
+### Primary
+- **Absolute Black** (`#000000`): Immersive hero canvases, high-drama pitch slides, deep UI anchors, in-CAD panel default background.
 - **Pale Neutral** (`#f5f5f7`): Main light surface for feature bands, comparison sections, editorial transitions, light-canvas pitch slides.
 - **Near-Black Ink** (`#1d1d1f`): Primary text on light canvases. Dark-fill control color.
 
-### Accent (Navy + Blue Family) — mirrors Apple's three-blue role structure
+### Accent (Teal Family) — mirrors Apple's three-blue role structure
 
-- **Primary Navy** (`#00233f`): **Primary brand color and action fill on light canvas.** Buttons, focus signal, brand mark, primary stat callouts on light canvases, eyebrow labels on light slides. The DesignFlowAI brand color. Equivalent role to Apple Action Blue.
-- **Mid Navy / Link** (`#003c66`): Inline links in long-form copy on light canvases. Slightly lifted from primary navy for readability — at 11px or below in dense UI, fall back to Primary Navy (`#00233f`) so the link still reads as navy rather than gray. Equivalent role to Apple Body Link Blue.
-- **Accent Blue** (`#0369ce`): Mid-luminance blue for accents on graphite dark canvases — eyebrows, hero stats, geometry-context indicators. Sits cleanly against `#272729` (Apple's commerce-page treatment). Equivalent role to Apple's `#2997ff`.
+- **DesignFlow Teal** (`#0f766e`): **Primary action fill.** Buttons, focus signal, brand accent, primary stat callouts on light canvases, eyebrow labels on light slides. Equivalent role to Apple Action Blue.
+- **Body Link Teal** (`#134e4a`): Inline links in long-form copy on light canvases. Reads as deep teal at body sizes; at 11px or below in dense UI, prefer DesignFlow Teal (`#0f766e`) instead so the link still reads as teal rather than gray. Equivalent role to Apple Body Link Blue.
+- **High-Luminance Teal** (`#14b8a6`): Calmer teal for accents on dark canvases — eyebrows, hero stats, geometry-context indicators. Less candy than a brighter pastel; reads as serious infrastructure rather than vivid SaaS. Equivalent role to Apple's `#2997ff`.
 
 ### Surface & Background
 - **Pure White Canvas** (`#ffffff`): Editorial document backgrounds, dense product list sections, form surfaces.
@@ -59,7 +59,7 @@ Typography is the stabilizer across all three gears. SF Pro Display carries hero
 - **Utility Dark Gray** (`#424245`): Dark-neutral text/surface crossover in dense store-style contexts.
 
 ### Semantic & Accent
-- **Selection/Focus Signal** (`#00233f`): Shared focus and selected-state signal across all three surfaces.
+- **Selection/Focus Signal** (`#0f766e`): Shared focus and selected-state signal across all three surfaces.
 - **Status Colors** (used sparingly, only where meaning is genuinely semantic):
   - **Success** (`#16a34a`): Successful retrievals, validated standards, approved geometry.
   - **Warning** (`#d97706`): Standards conflicts, lessons-learned alerts, design rule violations.
@@ -125,10 +125,10 @@ Typography is the stabilizer across all three gears. SF Pro Display carries hero
 ## 4. Component Stylings
 
 ### Buttons
-- **Primary Fill Action** (light canvas): `#00233f` background, `#ffffff` text, 8px radius, padding 12px 24px (standard) or 8px 16px (compact).
-- **Primary Fill Action** (dark canvas): `#0369ce` background, `#ffffff` text, 8px radius. Used on graphite canvases where navy disappears.
+- **Primary Fill Action** (light canvas): `#0f766e` background, `#ffffff` text, 8px radius, padding 12px 24px (standard) or 8px 16px (compact).
+- **Primary Fill Action** (dark canvas): `#14b8a6` background, `#042f2c` text (deep teal-900 for AA contrast), 8px radius.
 - **Dark Fill Action**: `#1d1d1f` background, `#ffffff` text, 8px radius. Used when light surfaces need a restrained high-contrast primary that reads as "secondary brand."
-- **Secondary / Ghost Action**: transparent fill, `#00233f` text, `#00233f` 1px border, 8px radius.
+- **Secondary / Ghost Action**: transparent fill, `#0f766e` text, `#0f766e` 1px border, 8px radius.
 - **Pill / Capsule Action Family**: large capsule actions at 18px–56px radii and elongated pill links at 980px. Reserve for marketing hero CTAs and high-drama pitch slide actions.
 - **Utility Filter Shells** (in-CAD): `#272729` background, `#86868b` 1px border, 6px radius, 12–13px Text, padding 6px 12px.
 - **Pressed Behavior**: active controls reduce scale to 0.98 or shift fill brightness by 8% to indicate physical press confirmation. No bouncy easing — keep transitions ≤150ms.
@@ -142,7 +142,7 @@ Typography is the stabilizer across all three gears. SF Pro Display carries hero
 - **Carousel / Spotlight Modules**: larger rounded shells (28–36px) for featured content lanes on the marketing site.
 
 ### Inputs & Forms
-- **Marketing Input Fields**: white background, `#1d1d1f` text, `#86868b` 1px border, 8px radius, 17px Text, padding 12px 16px. Focus state: 2px `#00233f` ring at 0 offset.
+- **Marketing Input Fields**: white background, `#1d1d1f` text, `#86868b` 1px border, 8px radius, 17px Text, padding 12px 16px. Focus state: 2px `#0f766e` ring at 0 offset.
 - **In-CAD Query Input**: see §4.7 below — this is the central interaction surface and gets dedicated treatment.
 - **Selection Controls**: circular toggle controls for binary choices; chip-style controls for multi-select filter contexts.
 - **Density Strategy**: form fields stay visually quiet to keep retrieved knowledge and CAD geometry dominant.
@@ -151,12 +151,12 @@ Typography is the stabilizer across all three gears. SF Pro Display carries hero
 - **Marketing Site Top Nav**: compact translucent bar (`rgba(255,255,255,0.8)` on light, `rgba(0,0,0,0.7)` on dark) with backdrop-blur. 14px Text links, 24px height. Logo left, primary nav center/left, demo CTA right.
 - **In-CAD Panel Header**: 40px tall, `#1e1e1f` background, 1px `#2a2a2c` bottom border. Logo, panel-collapse toggle, settings icon.
 - **Tab/Segment Controls** (in-CAD): pill-segmented toggles for switching between query, history, settings views.
-- **Link Hierarchy**: navy links remain the primary interactive signal; neutral text supports dense navigation.
+- **Link Hierarchy**: teal links remain the primary interactive signal; neutral text supports dense navigation.
 
 ### Image & Geometry Treatment
 - **Marketing photography**: hardware (CAD workstations, automotive parts, manufactured assemblies) foregrounded on controlled solid surfaces. High-fidelity finish and material rendering.
 - **CAD screenshots**: shown with native CATIA/NX dark chrome intact. Do not crop out the chrome — it signals product authenticity. Use 8–12px radius corner mask when embedding in marketing or pitch contexts.
-- **Geometry highlighting**: when calling out specific features in CAD imagery for marketing, use a 2px `#0369ce` outline glow with no fill — never a colored fill that would obscure geometry.
+- **Geometry highlighting**: when calling out specific features in CAD imagery for marketing, use a 2px `#14b8a6` outline glow with no fill — never a colored fill that would obscure geometry.
 - **Mixed framing**: full-bleed cinematic scenes for marketing hero; rounded retail cards for product-feature grids.
 
 ### 4.7 — DesignFlowAI-Specific Components
@@ -166,10 +166,10 @@ These three components do not exist in Apple's system and are core to the produc
 **Query Input Bar** (in-CAD)
 - 48px tall on desktop in-CAD, 56px on standalone web demo
 - Background: `#28282b` (one step lighter than panel base for subtle elevation)
-- Border: 1px `#86868b`; focus ring: 2px `#0369ce` at 0 offset
+- Border: 1px `#86868b`; focus ring: 2px `#14b8a6` at 0 offset
 - 14–15px SF Pro Text body, `#f5f5f7` color
 - Placeholder text: `#86868b`, e.g. "Ask about this feature, standard, or lesson learned…"
-- Left affordance: 16px microphone icon (`#86868b`, `#0369ce` when active) for voice input
+- Left affordance: 16px microphone icon (`#86868b`, `#14b8a6` when active) for voice input
 - Right affordance: small `↵` glyph in mono, `#86868b`
 - Border radius: 12px
 - When the query is geometry-aware (cursor is on a feature), append the **Geometry-Context Indicator** as a small chip immediately above the input
@@ -178,16 +178,16 @@ These three components do not exist in Apple's system and are core to the produc
 - Background: `#272729`
 - Border: 1px `#2a2a2c` (subtle separation only)
 - Border radius: 12px, padding 16px 18px
-- Header row: source-type icon (16px) + source label in 11px SF Pro Text 600 uppercase (`#0369ce`, +1.2px tracking) + age/recency in mono 11px (`#86868b`), right-aligned
+- Header row: source-type icon (16px) + source label in 11px SF Pro Text 600 uppercase (`#14b8a6`, +1.2px tracking) + age/recency in mono 11px (`#86868b`), right-aligned
 - Body: 14px SF Pro Text, `#f5f5f7`, line-height 1.45
 - Footer row: source citation in mono 12px (`#86868b`) — must always be present and clickable; provenance is non-negotiable for engineering content
 - Optional inline geometry preview: 80×80px thumbnail with 8px radius, 1px `#424245` border
-- Action affordances: "Apply to part" (primary blue pill) and "Save to my knowledge" (ghost) — 13px Text
+- Action affordances: "Apply to part" (primary teal pill) and "Save to my knowledge" (ghost) — 13px Text
 
 **Geometry-Context Indicator** (chip)
 - Pill, 24–28px tall, padding 4px 10px
-- Background: `#272729`; border: 1px `#0369ce` at 0.4 opacity
-- Body: mono 11px, `#0369ce`
+- Background: `#272729`; border: 1px `#14b8a6` at 0.4 opacity
+- Body: mono 11px, `#14b8a6`
 - Format: `▸ {feature_type} · {part_id}` — e.g. `▸ HOLE · BRKT-7842-L`
 - This chip signals to the engineer that the system is grounded to the specific feature their cursor is on. It is the visible representation of the product's core moat.
 
@@ -235,11 +235,11 @@ Rhythm constants:
 
 | Level | Treatment | Use |
 |------|-----------|-----|
-| 0 | Flat neutral surfaces (`#ffffff`, `#f5f5f7`, `#272729`, `#1e1e1f`) | Main narrative and product stages |
+| 0 | Flat neutral surfaces (`#ffffff`, `#f5f5f7`, `#000000`, `#1e1e1f`) | Main narrative and product stages |
 | 1 | Subtle border containment (`#d2d2d7`, `#86868b`, `#2a2a2c`) | Filters, input fields, in-CAD cards |
 | 2 | Soft shadow (`rgba(0,0,0,0.08)` to `rgba(0,0,0,0.22)`) | Highlighted marketing cards, modal overlays |
 | 3 | Dark-surface stepping (`#1e1e1f` → `#272729` → `#2a2a2c`) | In-CAD overlays, query input on panel base, dark utility clusters |
-| Focus | 2px `#00233f` (light) or `#0369ce` (dark) ring at 0 offset | Keyboard focus and selected states |
+| Focus | 2px `#0f766e` (light) or `#14b8a6` (dark) ring at 0 offset | Keyboard focus and selected states |
 
 Depth is intentionally restrained. Tonal contrast, surface stepping, and compositional hierarchy do most of the work — heavy shadow stacks are explicitly avoided.
 
@@ -252,8 +252,8 @@ Depth is intentionally restrained. Tonal contrast, surface stepping, and composi
 ## 7. Do's and Don'ts
 
 ### Do
-- Use the neutral triad (`#272729`, `#f5f5f7`, `#ffffff`) plus the in-CAD graphite tier (`#1e1e1f`, `#28282b`, `#2a2a2c`) as the structural foundation.
-- Reserve navy and blue accents for genuine action and navigation semantics.
+- Use the neutral triad (`#000000`, `#f5f5f7`, `#ffffff`) plus the in-CAD graphite tier (`#1e1e1f`, `#272729`) as the structural foundation.
+- Reserve teal accents for genuine action and navigation semantics.
 - Keep typography tight and deliberate, especially at display scales.
 - Use mono deliberately — only for technical data, never for ornament.
 - Maintain the capsule/circle geometry language for controls and key actions.
@@ -263,7 +263,7 @@ Depth is intentionally restrained. Tonal contrast, surface stepping, and composi
 - Always show source citation on retrieved knowledge — provenance is core to engineering trust.
 
 ### Don't
-- Don't introduce broad secondary accent palettes that compete with the navy + blue family. No teal, no purple, no orange, no green.
+- Don't introduce broad secondary accent palettes that compete with DesignFlow Teal. No purple, no pink, no orange.
 - Don't overuse shadows, glow effects, or decorative gradients in core UI chrome.
 - Don't mix unrelated font families or loosen tracking indiscriminately.
 - Don't flatten all corners to a single radius; use the radius tier system in §5.
@@ -327,8 +327,8 @@ Depth is intentionally restrained. Tonal contrast, surface stepping, and composi
 Rule of thumb: roughly **60% dark / 40% light**, alternating in chapters of 1–3 slides. Same color tokens throughout — only the canvas switches.
 
 ### Stat Hero Pattern (the Apple-style problem slide)
-- Eyebrow label, top-left: SF Pro Text 600, 12px uppercase, +1.2px tracking, primary navy on light / blue on graphite
-- Hero stat: 96–120px Display, 600 weight, primary navy on light / blue on graphite — the only colored element on the slide
+- Eyebrow label, top-left: SF Pro Text 600, 12px uppercase, +1.2px tracking, primary teal accent
+- Hero stat: 96–120px Display, 600 weight, primary teal — the only colored element on the slide
 - Supporting line: 22–28px Display, 600 weight, ink color, ≤70% width
 - Source citation, bottom-left: SF Mono 11px, secondary gray
 - Generous whitespace; no other elements
@@ -336,13 +336,13 @@ Rule of thumb: roughly **60% dark / 40% light**, alternating in chapters of 1–
 ### Light Slide Pattern
 - Canvas: `#f5f5f7`
 - Text: `#1d1d1f` primary, `#6e6e73` secondary
-- Accent: `#00233f` (primary navy)
+- Accent: `#0f766e` (primary teal)
 - Source citations: mono 11px, `#6e6e73`
 
 ### Dark Slide Pattern
-- Canvas: `#272729` (graphite — softer than pure black)
+- Canvas: `#000000`
 - Text: `#f5f5f7` primary, `#86868b` secondary
-- Accent: `#0369ce` (accent blue)
+- Accent: `#14b8a6` (high-luminance teal)
 - Source citations: mono 11px, `#86868b`
 
 ### Embedding Product Screenshots
@@ -374,8 +374,8 @@ Rule of thumb: roughly **60% dark / 40% light**, alternating in chapters of 1–
 - Source citations are mandatory on every retrieved knowledge card. Without provenance, the card is not shippable.
 
 ### Brand Restraint in CAD
-- Accent Blue (`#0369ce`) appears only on: focus states, primary actions, the geometry-context chip, and active-state mono labels.
-- Do not flood the panel with blue. The product earns trust by feeling like a calm, professional engineering tool — not a branded SaaS overlay.
+- DesignFlow Teal appears only on: focus states, primary actions, the geometry-context chip, and active-state mono labels.
+- Do not flood the panel with teal. The product earns trust by feeling like a calm, professional engineering tool — not a branded SaaS overlay.
 
 ---
 
@@ -384,10 +384,10 @@ Rule of thumb: roughly **60% dark / 40% light**, alternating in chapters of 1–
 > *This section is written for agentic code generation tools (Claude, Cursor, v0, etc.). Use the example prompts as templates when generating UI for any of the three surfaces.*
 
 ### Quick Color Reference
-- Primary action navy: **Primary Navy** (`#00233f`)
-- Inline link navy (light canvas): **Mid Navy** (`#003c66`)
-- Accent blue (graphite canvas): **Accent Blue** (`#0369ce`)
-- Dark chapter canvas: **Graphite Canvas** (`#272729`)
+- Primary action teal: **DesignFlow Teal** (`#0f766e`)
+- Inline link teal (light canvas): **Body Link Teal** (`#134e4a`)
+- High-luminance teal (dark canvas): **High-Luminance Teal** (`#14b8a6`)
+- Dark chapter canvas: **Absolute Black** (`#000000`)
 - In-CAD panel base: **Graphite Surface B** (`#1e1e1f`)
 - In-CAD card surface: **Graphite Surface A** (`#272729`)
 - Light chapter canvas: **Pale Neutral** (`#f5f5f7`)
@@ -400,26 +400,26 @@ Rule of thumb: roughly **60% dark / 40% light**, alternating in chapters of 1–
 ### Example Prompts by Surface
 
 **Marketing site — hero section:**
-> "Design a DesignFlowAI marketing hero on a graphite canvas (`#272729`) with an SF Pro Display semibold headline (56px), one supporting line in 19px SF Pro Text at `#86868b`, and two capsule CTAs — primary `#0369ce` fill with `#ffffff` text, secondary ghost with 1px `#0369ce` border. Eyebrow label above headline in 12px SF Pro Text 600 uppercase, `#0369ce`, 1.2px letter-spacing."
+> "Design a DesignFlowAI marketing hero on a black canvas (`#000000`) with an SF Pro Display semibold headline (56px), one supporting line in 19px SF Pro Text at `#86868b`, and two capsule CTAs — primary `#14b8a6` fill with `#042f2c` text, secondary ghost with 1px `#14b8a6` border. Eyebrow label above headline in 12px SF Pro Text 600 uppercase, `#14b8a6`, 1.2px letter-spacing."
 
 **Marketing site — feature card grid:**
 > "Build a feature card grid on a `#f5f5f7` canvas with 3 image-first cards. Each card: white background, 18px radius, no shadow, image at top with 12px radius, 24px Display Card Title in `#1d1d1f`, 17px Body in `#6e6e73`. Use restrained spacing — 32px gap between cards, 96px section padding."
 
 **In-CAD product panel:**
-> "Build a DesignFlowAI in-CAD panel mockup at 420px wide on a `#1e1e1f` canvas. Top: 40px header with logo and settings icon. Below: 28px Geometry-Context Indicator chip showing `▸ HOLE · BRKT-7842-L` in 11px mono `#0369ce` on `#272729` background with `#0369ce` border at 0.4 opacity. Below: 48px Query Input on `#28282b`, 12px radius, 1px `#86868b` border, placeholder 'Ask about this feature, standard, or lesson learned…'. Below: stack of 3 Retrieved Knowledge Cards with source citations in 12px mono."
+> "Build a DesignFlowAI in-CAD panel mockup at 420px wide on a `#1e1e1f` canvas. Top: 40px header with logo and settings icon. Below: 28px Geometry-Context Indicator chip showing `▸ HOLE · BRKT-7842-L` in 11px mono `#14b8a6` on `#272729` background with `#14b8a6` border at 0.4 opacity. Below: 48px Query Input on `#28282b`, 12px radius, 1px `#86868b` border, placeholder 'Ask about this feature, standard, or lesson learned…'. Below: stack of 3 Retrieved Knowledge Cards with source citations in 12px mono."
 
 **Pitch deck — stat hero (dark):**
-> "Design a 1920×1080 pitch deck slide on `#272729` graphite. Top-left: 12px SF Pro Text 600 uppercase eyebrow 'THE PROBLEM' in `#0369ce`, letter-spacing 1.2px. Center-left: 120px SF Pro Display 600 weight number '50%' in `#0369ce`, letter-spacing -3px. Below number: 28px SF Pro Display 600 weight headline 'of engineering time is lost to non-value-added work.' in `#f5f5f7`, max-width 70%. Bottom-left: 11px SF Mono 'Source: CoLab Software, 2024' in `#86868b`. 160px outer margins."
+> "Design a 1920×1080 pitch deck slide on `#000000`. Top-left: 12px SF Pro Text 600 uppercase eyebrow 'THE PROBLEM' in `#14b8a6`, letter-spacing 1.2px. Center-left: 120px SF Pro Display 600 weight number '50%' in `#14b8a6`, letter-spacing -3px. Below number: 28px SF Pro Display 600 weight headline 'of engineering time is lost to non-value-added work.' in `#f5f5f7`, max-width 70%. Bottom-left: 11px SF Mono 'Source: CoLab Software, 2024' in `#86868b`. 160px outer margins."
 
 **Pitch deck — comparison table (light):**
-> "Design a 1920×1080 pitch deck slide on `#f5f5f7` showing a competitive comparison. Title: 40px SF Pro Display 600 weight in `#1d1d1f`. Table: white background, 18px radius, 1px `#d2d2d7` border. Column headers in 14px SF Pro Text 600 weight uppercase, `#6e6e73`. Cell text 17px SF Pro Text in `#1d1d1f`. DesignFlowAI row highlighted with `#00233f` left border (4px) and bold row text. Source citation bottom-left in 11px mono."
+> "Design a 1920×1080 pitch deck slide on `#f5f5f7` showing a competitive comparison. Title: 40px SF Pro Display 600 weight in `#1d1d1f`. Table: white background, 18px radius, 1px `#d2d2d7` border. Column headers in 14px SF Pro Text 600 weight uppercase, `#6e6e73`. Cell text 17px SF Pro Text in `#1d1d1f`. DesignFlowAI row highlighted with `#0f766e` left border (4px) and bold row text. Source citation bottom-left in 11px mono."
 
 **Editorial document — investor memo:**
-> "Build a long-form investor memo layout on `#ffffff`, 760px reading column centered. H1: 40px SF Pro Display 600. H2: 28px Display 600. Body: 17px SF Pro Text 400, line-height 1.47, `#1d1d1f`. Inline links in `#003c66`. Pull quotes in 19px Text 400 italic, `#6e6e73`, with a 4px `#00233f` left border. References in 14px mono."
+> "Build a long-form investor memo layout on `#ffffff`, 760px reading column centered. H1: 40px SF Pro Display 600. H2: 28px Display 600. Body: 17px SF Pro Text 400, line-height 1.47, `#1d1d1f`. Inline links in `#134e4a`. Pull quotes in 19px Text 400 italic, `#6e6e73`, with a 4px `#0f766e` left border. References in 14px mono."
 
 ### Iteration Guide
-1. Lock the neutral foundation first (`#272729`, `#f5f5f7`, `#ffffff`, `#1e1e1f`) before tuning navy + blue accents.
-2. Keep accents scarce and purposeful. If everything is navy/blue, hierarchy collapses.
+1. Lock the neutral foundation first (`#000000`, `#f5f5f7`, `#ffffff`, `#1e1e1f`) before tuning teal accents.
+2. Keep teal accents scarce and purposeful. If everything is teal, hierarchy collapses.
 3. Tune typography in this order: display scale, body readability, then mono technical data.
 4. Match radius by component class (field, card, capsule, circle) rather than one-size-fits-all rounding.
 5. Increase density gradually when moving from showcase → utility surfaces.

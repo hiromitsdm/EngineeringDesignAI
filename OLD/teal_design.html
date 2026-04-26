@@ -4,19 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DesignFlowAI — Design System</title>
-<meta name="description" content="DesignFlowAI design system v0.4 — color, typography, components." />
+<meta name="description" content="DesignFlowAI design system v0.2 — color, typography, components." />
 <style>
   /* ============================================================
      DESIGN TOKENS — all colors, fonts, surfaces in one place
      ============================================================ */
   :root {
-    /* Navy + blue accent family (locked April 2026, v0.4) */
-    --navy-primary: #00233f;  /* primary brand color, light canvas */
-    --navy-link:    #003c66;  /* inline links on light, slightly lifted */
-    --blue-accent:  #0369ce;  /* accent on graphite dark canvas */
-    --blue-deep:    #ffffff;  /* text on blue fills */
-    --blue-tint:    #bfdbfe;  /* sub-text on navy/blue fills */
-    --blue-tint-2:  #93c5fd;  /* sub-text on navy fills, lighter */
+    /* Teal accent family (locked April 2026) */
+    --teal-primary: #0f766e;
+    --teal-link:    #134e4a;
+    --teal-high:    #14b8a6;
+    --teal-deep:    #042f2c;  /* text on bright teal fills */
+    --teal-tint:    #99f6e4;  /* sub-text on teal fills (dark mode) */
+    --teal-tint-2:  #5eead4;  /* sub-text on teal fills (lighter) */
 
     /* Surfaces */
     --black:     #000000;
@@ -52,14 +52,14 @@
      Variables flip; everything else cascades automatically.
      ============================================================ */
   :root {
-    --bg:          var(--graphite-a);
-    --bg-card:     var(--graphite-c);
-    --bg-elevated: var(--graphite-d);
+    --bg:          var(--black);
+    --bg-card:     var(--graphite-a);
+    --bg-elevated: var(--graphite-c);
     --text-primary:   var(--pale);
     --text-secondary: var(--gray-3);
     --text-tertiary:  #555555;
-    --accent:      var(--blue-accent);
-    --accent-deep: var(--white);
+    --accent:      var(--teal-high);
+    --accent-deep: var(--teal-deep);
     --border:      var(--gray-5);
     --border-soft: #2e2e30;
   }
@@ -70,7 +70,7 @@
     --text-primary:   var(--ink);
     --text-secondary: var(--gray-2);
     --text-tertiary:  #9a9a9f;
-    --accent:      var(--navy-primary);
+    --accent:      var(--teal-primary);
     --accent-deep: var(--white);
     --border:      var(--gray-4);
     --border-soft: #e5e5ea;
@@ -379,12 +379,12 @@
   }
   .btn:active { transform: scale(0.98); }
   .btn-primary {
-    background: var(--navy-primary);
+    background: var(--teal-primary);
     color: var(--white);
   }
   .btn-primary-dark {
-    background: var(--blue-accent);
-    color: var(--blue-deep);
+    background: var(--teal-high);
+    color: var(--teal-deep);
   }
   .btn-ghost {
     background: transparent;
@@ -392,7 +392,7 @@
     border: 1px solid var(--accent);
   }
   .btn-pill {
-    background: var(--navy-primary);
+    background: var(--teal-primary);
     color: var(--white);
     border-radius: 999px;
     padding: 12px 28px;
@@ -409,18 +409,18 @@
 
   /* Link examples */
   .link-demo {
-    color: var(--navy-link);
+    color: var(--teal-link);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
   }
   :root[data-theme="dark"] .link-demo {
-    color: var(--blue-tint-2);
+    color: var(--teal-tint-2);
   }
 
   /* Featured card */
   .feature-card {
-    background: var(--navy-primary);
+    background: var(--teal-primary);
     color: var(--white);
     border-radius: 12px;
     padding: 24px;
@@ -430,7 +430,7 @@
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 1.2px;
-    color: var(--blue-tint);
+    color: var(--teal-tint);
     margin-bottom: 12px;
     text-transform: uppercase;
   }
@@ -444,7 +444,7 @@
   }
   .feature-card .feature-card-sub {
     font-size: 12px;
-    color: var(--blue-tint);
+    color: var(--teal-tint);
   }
 
   /* ============================================================
@@ -463,7 +463,7 @@
     box-sizing: border-box;
     border: 0.5px solid var(--border-soft);
   }
-  .slide-dark { background: var(--graphite-a); }
+  .slide-dark { background: var(--black); }
   .slide-light { background: var(--pale); }
   .slide-eyebrow {
     font-family: var(--font-text);
@@ -472,8 +472,8 @@
     letter-spacing: 1.2px;
     text-transform: uppercase;
   }
-  .slide-dark .slide-eyebrow { color: var(--blue-accent); }
-  .slide-light .slide-eyebrow { color: var(--navy-primary); }
+  .slide-dark .slide-eyebrow { color: var(--teal-high); }
+  .slide-light .slide-eyebrow { color: var(--teal-primary); }
   .slide-stat {
     font-family: var(--font-display);
     font-size: 80px;
@@ -482,8 +482,8 @@
     line-height: 1;
     margin: 18px 0 0;
   }
-  .slide-dark .slide-stat { color: var(--blue-accent); }
-  .slide-light .slide-stat { color: var(--navy-primary); }
+  .slide-dark .slide-stat { color: var(--teal-high); }
+  .slide-light .slide-stat { color: var(--teal-primary); }
   .slide-headline {
     font-family: var(--font-display);
     font-size: 18px;
@@ -564,8 +564,8 @@
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-  .rule-card.do .rule-tag { color: var(--navy-primary); }
-  :root[data-theme="dark"] .rule-card.do .rule-tag { color: var(--blue-accent); }
+  .rule-card.do .rule-tag { color: var(--teal-primary); }
+  :root[data-theme="dark"] .rule-card.do .rule-tag { color: var(--teal-high); }
   .rule-card.dont .rule-tag { color: #dc2626; }
   :root[data-theme="dark"] .rule-card.dont .rule-tag { color: #f87171; }
   .rule-card p {
@@ -646,7 +646,7 @@
      ========================================================= -->
 <header class="hero">
   <div class="container">
-    <div class="eyebrow">DesignFlowAI · Design system · v0.4</div>
+    <div class="eyebrow">DesignFlowAI · Design system · v0.2</div>
     <h1>Engineering knowledge,<br />wired to a system.</h1>
     <p class="lede">A precision-editorial design system spanning the marketing site, the in-CAD product UI, and pitch materials. Same DNA across all three; canvas rhythm and density change to match context.</p>
     <div class="hero-meta">
@@ -664,37 +664,37 @@
   <div class="container">
     <div class="eyebrow">Section 01</div>
     <h2>Color, codified.</h2>
-    <p class="lede" style="margin-bottom: 56px;">A navy + blue accent system — three stops — drives every interactive and decorative moment. Graphite, pale neutral, and white carry the canvas. No secondary brand color competes.</p>
+    <p class="lede" style="margin-bottom: 56px;">A single teal accent family — three stops — drives every interactive and decorative moment. Black, pale neutral, and white carry the canvas. No secondary brand color competes.</p>
 
-    <div class="swatch-group-label">Navy + blue accent family</div>
+    <div class="swatch-group-label">Teal accent family</div>
     <div class="swatch-grid">
       <div class="swatch">
-        <div class="swatch-color" style="background: #00233f;"></div>
-        <div class="swatch-name">Primary Navy</div>
-        <div class="swatch-hex">#00233f</div>
-        <div class="swatch-role">Primary brand color. Buttons, focus rings, eyebrows on light slides, hero stats, accent bars. The DesignFlowAI color.</div>
+        <div class="swatch-color" style="background: #0f766e;"></div>
+        <div class="swatch-name">DesignFlow Teal</div>
+        <div class="swatch-hex">#0f766e</div>
+        <div class="swatch-role">Primary action fill. Buttons, focus rings, eyebrows on light slides, accent bars.</div>
       </div>
       <div class="swatch">
-        <div class="swatch-color" style="background: #003c66;"></div>
-        <div class="swatch-name">Mid Navy / Link</div>
-        <div class="swatch-hex">#003c66</div>
-        <div class="swatch-role">Inline links in long-form copy on light canvas. At ≤11px, fall back to Primary Navy so links still read as navy.</div>
+        <div class="swatch-color" style="background: #134e4a;"></div>
+        <div class="swatch-name">Body Link Teal</div>
+        <div class="swatch-hex">#134e4a</div>
+        <div class="swatch-role">Inline links in long-form copy on light canvas. At ≤11px, fall back to DesignFlow Teal.</div>
       </div>
       <div class="swatch">
-        <div class="swatch-color" style="background: #0369ce;"></div>
-        <div class="swatch-name">Accent Blue</div>
-        <div class="swatch-hex">#0369ce</div>
-        <div class="swatch-role">Accents, eyebrows, hero stats on graphite dark canvas. Sits cleanly against #272729 — Apple's commerce-page treatment.</div>
+        <div class="swatch-color" style="background: #14b8a6;"></div>
+        <div class="swatch-name">High-Luminance Teal</div>
+        <div class="swatch-hex">#14b8a6</div>
+        <div class="swatch-role">Accents, eyebrows, hero stats on dark canvas. Calmer than a brighter pastel — reads as serious infrastructure.</div>
       </div>
     </div>
 
     <div class="swatch-group-label">Canvas surfaces</div>
     <div class="swatch-grid">
       <div class="swatch">
-        <div class="swatch-color" style="background: #272729;"></div>
-        <div class="swatch-name">Graphite Canvas</div>
-        <div class="swatch-hex">#272729</div>
-        <div class="swatch-role">Dark canvas. Softer than pure black — premium product page rather than keynote drama.</div>
+        <div class="swatch-color" style="background: #000000;"></div>
+        <div class="swatch-name">Absolute Black</div>
+        <div class="swatch-hex">#000000</div>
+        <div class="swatch-role">Immersive hero canvases. Dark pitch slides. In-CAD anchors.</div>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: #f5f5f7; border: 0.5px solid #d2d2d7;"></div>
@@ -852,8 +852,8 @@
     <div class="demo-card">
       <div class="demo-label">Eyebrow labels</div>
       <div style="display: flex; flex-direction: column; gap: 14px;">
-        <div class="eyebrow-demo" style="color: var(--navy-primary);">SECTION · LIGHT CANVAS · #00233F</div>
-        <div class="eyebrow-demo" style="color: var(--blue-accent);">SECTION · DARK CANVAS · #0369CE</div>
+        <div class="eyebrow-demo" style="color: var(--teal-primary);">SECTION · LIGHT CANVAS · #0F766E</div>
+        <div class="eyebrow-demo" style="color: var(--teal-high);">SECTION · DARK CANVAS · #14B8A6</div>
         <div class="eyebrow-demo" style="color: var(--text-secondary);">SECTION · NEUTRAL · USE WHEN ACCENT WOULD COMPETE</div>
       </div>
     </div>
@@ -926,13 +926,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Eyebrow / accent label</td><td class="mono-cell">#0369ce</td><td class="mono-cell">#00233f</td></tr>
-          <tr><td>Hero number / stat</td><td class="mono-cell">#0369ce</td><td class="mono-cell">#00233f</td></tr>
+          <tr><td>Eyebrow / accent label</td><td class="mono-cell">#14b8a6</td><td class="mono-cell">#0f766e</td></tr>
+          <tr><td>Hero number / stat</td><td class="mono-cell">#14b8a6</td><td class="mono-cell">#0f766e</td></tr>
           <tr><td>Headline</td><td class="mono-cell">#f5f5f7</td><td class="mono-cell">#1d1d1f</td></tr>
           <tr><td>Body / description</td><td class="mono-cell">#86868b</td><td class="mono-cell">#6e6e73</td></tr>
           <tr><td>Source citation · page #</td><td class="mono-cell">#86868b · mono</td><td class="mono-cell">#6e6e73 · mono</td></tr>
           <tr><td>Standard card</td><td class="mono-cell">#272729 fill</td><td class="mono-cell">#ffffff + #d2d2d7 border</td></tr>
-          <tr><td>Featured / highlighted card</td><td class="mono-cell">accent border + #0369ce</td><td class="mono-cell">#00233f fill + #ffffff text</td></tr>
+          <tr><td>Featured / highlighted card</td><td class="mono-cell">accent border + #14b8a6</td><td class="mono-cell">#0f766e fill + #ffffff text</td></tr>
         </tbody>
       </table>
     </div>
@@ -941,13 +941,13 @@
     <div class="rules-grid">
       <div class="rule-card dont">
         <div class="rule-tag">Don't</div>
-        <p>Use #0369ce on a light canvas.</p>
-        <p class="rule-detail">Reads as generic SaaS blue against pale neutral. Use #00233f navy on light.</p>
+        <p>Use #14b8a6 on a light canvas.</p>
+        <p class="rule-detail">Washes out — looks like a faded sticker. Use #0f766e on light.</p>
       </div>
       <div class="rule-card dont">
         <div class="rule-tag">Don't</div>
-        <p>Use #00233f on a graphite canvas.</p>
-        <p class="rule-detail">Disappears against #272729. Use #0369ce blue on graphite.</p>
+        <p>Use #0f766e on a dark canvas.</p>
+        <p class="rule-detail">Disappears against black. Use #14b8a6 on dark.</p>
       </div>
       <div class="rule-card dont">
         <div class="rule-tag">Don't</div>
@@ -956,18 +956,18 @@
       </div>
       <div class="rule-card dont">
         <div class="rule-tag">Don't</div>
-        <p>Add a third color besides navy and blue.</p>
-        <p class="rule-detail">No teal, purple, orange, green. Hierarchy collapses if everything competes.</p>
+        <p>Add a second color besides teal.</p>
+        <p class="rule-detail">No purple, orange, blue, red. Hierarchy collapses if everything competes.</p>
       </div>
       <div class="rule-card dont">
         <div class="rule-tag">Don't</div>
-        <p>Color body text with navy or blue.</p>
-        <p class="rule-detail">Navy is for accent only — eyebrows, hero stats, dividers, featured fills, links.</p>
+        <p>Color body text with teal.</p>
+        <p class="rule-detail">Teal is for accent only — eyebrows, hero stats, dividers, featured fills.</p>
       </div>
       <div class="rule-card dont">
         <div class="rule-tag">Don't</div>
         <p>Use sans-serif for source citations.</p>
-        <p class="rule-detail">Citations, page numbers, technical data → mono. Always.</p>
+        <p class="rule-detail">Citations, page numbers, eyebrows, technical data → mono. Always.</p>
       </div>
     </div>
 
@@ -980,7 +980,7 @@
 <footer>
   <div class="container">
     <div class="footer-row">
-      <span>DesignFlowAI · Design system · v0.4 · April 2026</span>
+      <span>DesignFlowAI · Design system · v0.2 · April 2026</span>
       <span>Hiroki Ogasawara · Rowell Castro</span>
     </div>
   </div>
