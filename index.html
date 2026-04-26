@@ -155,7 +155,7 @@
       align-items: center;
       text-align: center;
       padding: 80px 24px 60px;
-      background: var(--bg-dark);
+      background: var(--bg-light);
     }
 
     .hero-eyebrow {
@@ -165,10 +165,10 @@
       font-family: var(--font-text);
       font-size: 12px;
       font-weight: 600;
-      color: var(--blue);
+      color: var(--navy);
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      border: 1px solid rgba(3, 105, 206, 0.35);
+      border: 1px solid rgba(0, 35, 63, 0.3);
       padding: 5px 14px;
       border-radius: var(--r-pill);
       margin-bottom: 32px;
@@ -179,7 +179,7 @@
       content: '';
       width: 6px;
       height: 6px;
-      background: var(--blue);
+      background: var(--navy);
       border-radius: 50%;
       animation: pulse 2.5s infinite;
     }
@@ -195,17 +195,17 @@
       font-size: clamp(40px, 5.5vw, 56px);
       line-height: 1.07;
       letter-spacing: -0.28px;
-      color: var(--ink-dark);
+      color: var(--ink);
       max-width: 820px;
       animation: fadeUp 0.7s 0.08s ease both;
     }
 
-    h1 .accent { color: var(--blue); }
+    h1 .accent { color: var(--navy); }
 
     .hero-sub {
       font-family: var(--font-text);
       font-size: 19px;
-      color: var(--text-dark-2);
+      color: var(--text-2);
       max-width: 580px;
       margin-top: 24px;
       line-height: 1.45;
@@ -223,7 +223,7 @@
     }
 
     .btn-primary {
-      background: var(--blue);
+      background: var(--navy);
       color: #fff;
       padding: 14px 28px;
       border: none;
@@ -241,9 +241,9 @@
 
     .btn-secondary {
       background: transparent;
-      color: var(--blue);
+      color: var(--navy);
       padding: 14px 28px;
-      border: 1px solid var(--blue);
+      border: 1px solid var(--navy);
       border-radius: var(--r-pill);
       font-family: var(--font-text);
       font-size: 17px;
@@ -254,7 +254,7 @@
       display: inline-block;
     }
 
-    .btn-secondary:hover { background: rgba(3, 105, 206, 0.06); }
+    .btn-secondary:hover { background: rgba(0, 35, 63, 0.06); }
 
     .hero-stats {
       display: flex;
@@ -543,20 +543,7 @@
     }
 
     /* ── TRACTION ── */
-    #traction { background: var(--bg-dark); border-top: none; }
-
-    #traction .eyebrow { color: var(--blue); }
-    #traction h2 { color: var(--ink-dark); }
-    #traction .traction-title { color: var(--ink-dark); }
-    #traction .traction-desc { color: var(--text-dark-2); }
-    #traction .traction-item {
-      background: #1e1e1f;
-      border-color: var(--border-dark);
-    }
-    #traction .traction-icon {
-      background: rgba(3, 105, 206, 0.1);
-      border-color: rgba(3, 105, 206, 0.25);
-    }
+    #traction { background: var(--bg-light); border-top: 1px solid var(--border-soft); }
 
     .traction-list {
       display: flex;
