@@ -1061,7 +1061,7 @@
             which information is relevant to their parts.
           </p>
           <p class="problem-lead" data-i18n="pLead2">
-            The cost is not just time. A single late-stage design change in automotive can
+            The cost is not just time. For example, a single late-stage design change in automotive can
             cost millions in tooling and program delay. When institutional knowledge walks
             out the door, those costs multiply across every future program.
           </p>
@@ -1156,14 +1156,14 @@
   <section id="team">
     <div class="section reveal">
       <div class="eyebrow" data-i18n="tEyebrow">The Team</div>
-      <h2 data-i18n="tH2">Built by engineers who lived the problem with technical depth.</h2>
+      <h2 data-i18n="tH2">Built by engineers who lived the problem with MIT research.</h2>
 
       <div class="team-grid">
         <div class="team-card">
           <div class="team-head">
             <img class="team-photo" src="team-hiro.jpg" alt="Headshot of Hiroki Ogasawara"/>
             <div>
-              <div class="team-name">Hiroki (Hiro) Ogasawara</div>
+              <div class="team-name" data-i18n="nameHiro">Hiroki (Hiro) Ogasawara</div>
               <div class="team-role" data-i18n="roleCeo">Co-Founder &amp; CEO</div>
             </div>
           </div>
@@ -1185,7 +1185,7 @@
           <div class="team-head">
             <img class="team-photo" src="team-rowell.jpg" alt="Headshot of Rowell Castro"/>
             <div>
-              <div class="team-name">Rowell Castro</div>
+              <div class="team-name" data-i18n="nameRowell">Rowell Castro</div>
               <div class="team-role" data-i18n="roleCto">Co-Founder &amp; CTO</div>
             </div>
           </div>
@@ -1284,7 +1284,7 @@
           </div>
           <div class="form-group">
             <label data-i18n="fEmail">Work Email</label>
-            <input type="email" id="email" placeholder="jane@company.com" required/>
+            <input type="email" id="email" placeholder="jane@company.com" data-i18n-ph="phEmail" required/>
           </div>
           <div class="form-group">
             <label data-i18n="fCompany">Company</label>
@@ -1322,7 +1322,7 @@
     <ul class="footer-links">
       <li><a href="mailto:hoga@mit.edu" data-i18n="footContact">Contact</a></li>
     </ul>
-    <div class="footer-copy" data-i18n="footCopy">© 2026 DesignFlowAI. MIT Sandbox Backed.</div>
+    <div class="footer-copy" data-i18n="footCopy">© 2026 DesignFlowAI. All rights reserved.</div>
   </footer>
 
   <script>
@@ -1331,67 +1331,70 @@
       navProblem: '課題', navProduct: 'プロダクト', navVision: 'ビジョン', navTeam: 'チーム',
       navTraction: 'トラクション', navCta: 'デモを申し込む',
       heroEyebrow: 'MIT発 · エンジニアリングデザインのための企業の頭脳',
-      heroH1: '設計部品につながった<br/><span class="accent">設計知見。</span>',
-      heroSub: 'DesignFlowAIは設計者のためのエンジニアリングデザインインテリジェンス。製品化のための設計ガイドライン、過去知見、設計標準をリアルタイムに抽出し、高品質な部品の効率的な設計を実現します。',
-      ctaDemo: 'デモを申し込む', ctaHow: '仕組みを見る',
+      heroH1: '設計部品につながった<br/><span class="accent">企業の集合知</span>',
+      heroSub: 'DesignFlowAIはハードウェア設計者のためのエンジニアリングデザインインテリジェンスを提供します。製品化設計ガイドライン、過去プロジェクト知見、設計標準をリアルタイムに抽出し、高品質な部品の効率的な設計を実現します。',
+      ctaDemo: 'デモを申し込む', ctaHow: 'プロダクトを見る',
       stat1: '設計者の時間のうち<br/>非正味業務に費やされる割合',
-      stat2: 'デザインエンジニアへの<br/>カスタマーインタビュー実施数',
+      stat2: 'ハードウェア設計者への<br/>カスタマーインタビュー実施数',
       stat3: '世界のCAD & PLM市場規模<br/>年率7.6%で成長<br/><em>（Fortune Business Insights, 2026）</em>',
       pEyebrow: '課題',
-      pH2: '知見は存在する。<br/>見つからないことが問題だ。',
-      pLead1: '自動車、コンシューマーエレクトロニクス、航空宇宙などのデザインエンジニアは、毎日のかなりの時間を非正味業務に費やしています。PLMシステム、共有ドライブ、古いPDF、属人的な記憶——企業内のあらゆる場所に散らばった知見を探し回りながら、どの情報が自分の部品に関係するのかを確かめるためにCADを回し続けているのです。',
-      pLead2: '失われるのは時間だけではありません。自動車開発における後工程での設計変更は、金型改修とプログラム遅延で数百万ドル規模のコストになり得ます。企業の知見が人とともに流出すれば、そのコストは将来のすべてのプログラムで膨らみ続けます。',
-      pc1Desc: '設計者の時間のうち非正味業務が占める割合。エンジニアリングリーダーの半数は実態を勤務時間の20〜39%と推定<em>（CoLab, 2024）</em>。会議を含めると50%に達します。',
-      pc2Num: '変更1件で数百万ドル',
+      pH2: '企業内の設計情報が<br/>至る所に点在。',
+      pLead1: '自動車、コンシューマーエレクトロニクス、航空宇宙などのハードウェア設計者たちは、毎日のかなりの時間を非正味業務に費やしています。PLMシステム、共有ドライブ、古いPDF、属人的な記憶等、企業内のあらゆる場所に散らばった知見を探し回りながら、CADでの設計業務を行なっています。',
+      pLead2: '失われるのは時間だけではありません。例えば、自動車開発における後工程での設計変更は、金型改修とプログラム遅延で数百万ドル規模のコストになり得ます。企業の知見が人とともに流出すれば、そのコストは将来のすべてのプログラムで膨らみ続けます。',
+      pc1Desc: 'ハードウェア設計者の時間のうち非正味業務が占める割合。エンジニアリングリーダーの半数は実態を勤務時間の20〜39%と推定<em>（CoLab, 2024）</em>。会議を含めると50%に達します。',
+      pc2Num: '変更1件で数百万円以上のコスト',
       pc2Desc: '自動車開発における後工程の設計変更は、1件で金型改修とプログラム遅延により数百万ドルのコストが発生。知見のギャップは構造的な問題であり、人材の入れ替わりとともに悪化します。',
       prodEyebrow: 'プロダクト',
       prodH2: 'CAD環境の中で働く、エンジニアリングデザインのための頭脳。',
-      prodDesc: 'DesignFlowAIはCADに直接統合され、エンジニアは自然言語で一般知見と企業固有の知見を検索できます。抽出した知見をCADの形状に結びつけ、コンテキストに基づいた実行可能な設計知見を提供。エンジニアは探す時間を減らし、本来のエンジニアリングデザインに集中できます。<br/><br/>本システムは、一般知見コンテキスト（産業標準、DFMルール、材料特性）と固有知見コンテキスト（過去知見、内規、独自標準）を統合し、企業の集合知を生成します。',
+      prodDesc: 'DesignFlowAIはCADに直接統合され、ハードウェア設計者は自然言語で一般知見と企業固有の知見を検索できます。抽出した知見をCADの形状に結びつけ、コンテキストに基づいた実行可能な設計知見を提供。ハードウェア設計者は探す時間を減らし、本来のエンジニアリングデザインに集中できます。<br/><br/>本システムは、一般知見コンテキスト（産業標準、製品化設計ルール、材料特性）と固有知見コンテキスト（過去プロジェクト知見、内規、独自標準）を統合し、企業の集合知を生成します。',
       l1Title: 'CAD内集合知生成',
-      l1Desc: 'カーソル位置の空間コンテキストと検索システムにより、DFMガイドライン・過去知見・設計標準をリアルタイムに抽出。',
+      l1Desc: 'カーソル位置の空間コンテキストと検索システムにより、製品化設計ガイドライン・過去知見・設計標準をリアルタイムに抽出。',
       l2Title: 'CAD内形状自動修正',
       l2Desc: '企業の集合知と設計者の最終判断に応じて、CAD形状への変更をAIが提案・実行。',
       l3Title: 'CAD内形状自動生成',
-      l3Desc: '集合知と与えられた要件に基づき、形状を０から生成——真の設計コラボレーターへ。',
+      l3Desc: '集合知と与えられた要件に基づき、形状を０から生成。',
       stActive: '開発中', stRoadmap: '開発予定',
       vEyebrow: 'ビジョン',
-      vH2: '積み重なる、<br/>企業の集合知。',
+      vH2: '蓄積される企業の集合知<br/>形式知から構造知へ、そして暗黙知も。',
       vLead1: 'どのエンジニアも、ドキュメントには残らない判断を積み重ねています。市場不具合を受けてフィレット半径を大きくした理由、公差を変えざるを得ないサプライヤー特有の癖、一人の頭の中にしかない対策。DesignFlowAIは、最も経験豊富な人を含む現場のエンジニアがCADで作業するそばから、こうした暗黙知を捉え、生まれた瞬間に構造化された検索可能な知見へと変換します。',
       vLead2: 'やがてそれは、設計判断のたびに蓄積され続ける企業の集合知となります。人が入れ替わっても企業に残り、専門知見を次世代のエンジニアへと受け継いでいきます。',
       tEyebrow: 'チーム',
       tH2: '実体験に基づく課題を、MITでの研究を用いて解決。',
-      bioHiro: 'トヨタ自動車でボディ設計の設計主任エンジニアとして10年以上勤務。自動車設計に関する特許及び権利を14件保有。その後Appleに移り、CATIA・NXなど産業CADツールを用いた業界横断の設計経験を獲得。2024 MIT SDM Award（リーダーシップ・イノベーション・システム思考）受賞。',
-      bioRowell: 'MITでSDMとEECSの2つの修士号を取得。ShellでDXマネージャーとして9年以上勤務し、アナリティクス分野の革新によりRoyal Dutch Shell VP賞を2回受賞。MIT論文はエンジニアリングデザインにおけるセマンティック学習を扱い、DesignFlowAIにおけるドメイン知見の構造化・推論に直接活かされている。',
+      roleCeo: '共同創業者 & CEO', roleCto: '共同創業者 & CTO',
+      nameHiro: '小笠原 浩樹',
+      nameRowell: 'カストロ ローウェル',
+      bioHiro: 'トヨタ自動車でボディ設計の設計主任エンジニアとして日米において10年以上勤務。自動車設計に関する特許及び権利を14件保有。Appleではプロダクトデザイナーとしての経験。CATIA・NXなど産業CADツールを用いた業界横断の設計経験を獲得。2024 MIT SDM Award（リーダーシップ・イノベーション・システム思考）受賞。',
+      bioRowell: 'MITでSDMとEECSの2つの修士号を取得。ShellでDXマネージャーとして9年以上勤務し、アナリティクス分野の革新によりRoyal Dutch Shell VP賞を2回受賞。MIT CSAIL (Computer Science and Artificial Intelligence Laboratory)に所属し、論文にてエンジニアリングデザインにおけるセマンティック学習を扱い、DesignFlowAIが開発するプロダクトのコア技術を担う。',
       tagH1: 'トヨタ & Apple · 10年', tagH2: '設計主任エンジニア', tagH3: 'CADエキスパート',
       tagR1: 'Shell · 9年', tagR2: 'DXマネージャー', tagR4: 'Shell VP賞 2回',
       trEyebrow: 'トラクション',
-      trH2: '顧客発見から実証デモまで——一貫したフィードバック。',
+      trH2: 'カスタマーディスカバリーからプロダクトデモまでの一貫したフィードバック。',
       tr1T: '70名以上のカスタマーインタビュー',
       tr1D: '自動車メーカーおよびサプライヤーを対象に実施。コアとなる課題を検証し、プロダクトの意思決定に反映。',
-      tr2T: '動作する試作品',
-      tr2D: 'コアとなる知見抽出レイヤーとCAD内形状自動修正が動作・実証済み。両者を統合しユーザーに価値を届ける、最初のMVBPを構築中。',
+      tr2T: '開発済みの試作品',
+      tr2D: 'コアとなる知見抽出レイヤーとCAD内形状自動修正のPOC開発済み。両者を統合した最初のMVBPを開発中。',
       tr3T: 'OEM・サプライヤーとのエンゲージメント（意向表明書3件）',
-      tr3D: '試作品のデモを経て、自動車メーカーおよびサプライヤーのエンジニアとディレクターから積極的な関心。エンジニアリングと経営層の双方が課題を確認し、パイロット導入への関心を表明。',
+      tr3D: '試作品のデモを経て、自動車メーカーおよびサプライヤーのエンジニアとディレクターから積極的な関心。現場のエンジニアとマネージャーの双方と課題を確認し、パイロット導入への関心を受領。',
       tr4T: 'MIT発のスタートアップ',
-      tr4D: 'MIT Sandbox Innovation Fund Programによる支援。Bill Aulet教授の起業101クラスから誕生。MIT $100K起業コンペでMITスタートアップ80社のうちトップ7社に選出（<a href="https://www.youtube.com/live/wkhGFYeK5D4?si=vFq5sny27AhLlAWw&t=3605">ピッチ動画</a>）。',
+      tr4D: 'Bill Aulet教授の起業101クラスから誕生し、MIT Sandbox Innovation Fund Programによる支援を受ける。MIT $100K起業コンペでMITスタートアップ80社のうちトップ7社のうちの一社に選出（<a href="https://www.youtube.com/live/wkhGFYeK5D4?si=vFq5sny27AhLlAWw&t=3605">ピッチ動画</a>）。',
       tr5T: 'Y Combinator トップ10%',
       tr5D: '初挑戦でY Combinator Summer 2026応募者のトップ10%にランクイン。',
       cEyebrow: 'お問い合わせ',
       cH2: 'デモのご依頼・パイロットのご相談。',
-      cP: '現在、各業界のエンジニアリングデザインチームとパイロットを進めています。デザインエンジニア、エンジニアリングディレクター、投資家の方——ぜひお話をお聞かせください。',
+      cP: '現在、各業界のハードウェア設計チームとパイロットを進めています。エンジニア、マネージャー、投資家の方からのお問い合わせをお待ちしています。',
       badge1: 'パイロットのご相談', badge2: '投資家の方', badge3: 'エンジニア採用',
       fFirst: '名', fLast: '姓', fEmail: '勤務先メールアドレス', fCompany: '会社名',
       fRole: '私は…', fMsg: 'メッセージ（任意）',
-      opt0: '役割を選択してください', opt1: '設計主任エンジニア（DRE）',
+      opt0: '役割を選択してください', opt1: 'エンジニア',
       opt2: 'エンジニアリングマネージャー／ディレクター', opt3: '投資家／VC',
       opt4: 'CAD／PLM管理者', opt5: 'その他',
       fSubmit: 'デモを申し込む →', fNote: '1営業日以内にご返信します。',
       successH: 'リクエストを受け付けました。',
       successP: 'お問い合わせありがとうございます。1営業日以内にご連絡いたします。',
-      phFirst: '太郎', phLast: '山田', phCompany: 'トヨタ、Apple、ボーイング…',
+      phFirst: '太郎', phLast: '山田', phEmail: 'taro@company.com', phCompany: 'トヨタ、キヤノン、三菱重工…',
       phMsg: 'チーム構成、CAD環境、お問い合わせのきっかけなどをお聞かせください…',
       footContact: 'お問い合わせ',
-      footCopy: '© 2026 DesignFlowAI. MIT Sandbox支援.'
+      footCopy: '© 2026 DesignFlowAI. All rights reserved.'
     };
 
     const i18nEls = document.querySelectorAll('[data-i18n]');
