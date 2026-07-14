@@ -1418,7 +1418,11 @@
       }
     };
 
-    let currentLang = localStorage.getItem('dfai-lang') || 'en';
+    // Explicit toggle choice wins; otherwise default from the browser's preferred languages
+    const savedLang = localStorage.getItem('dfai-lang');
+    const prefersJa = [navigator.language, ...(navigator.languages || [])]
+      .some(l => (l || '').toLowerCase().startsWith('ja'));
+    let currentLang = savedLang || (prefersJa ? 'ja' : 'en');
 
     function setLang(lang) {
       currentLang = lang;
