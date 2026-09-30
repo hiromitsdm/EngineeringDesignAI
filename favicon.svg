@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -30 1102 1162">
+  <style>path{fill:#1A1F2C}@media (prefers-color-scheme:dark){path{fill:#FFFFFF}}</style>
+  <path d="M328 123 L439 59 Q491 29 543 59 L905 268 Q957 298 957 358 L957 608 L793 702 L629 608 L629 297 Z"/>
+    <path d="M295 142 L458 237 L458 426 L189 581 L189 930 L78 865 Q25 835 25 775 L25 358 Q25 298 78 268 Z"/>
+    <path d="M221 758 L385 664 L654 820 L957 646 L957 775 Q957 835 905 865 L543 1073 Q491 1103 439 1073 L221 946 Z"/>
+</svg>
