@@ -545,28 +545,6 @@
       line-height: 1.6;
     }
 
-    .layer-status {
-      font-family: var(--font-text);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 4px 10px;
-      border-radius: var(--r-pill);
-      white-space: nowrap;
-      align-self: flex-start;
-      margin-top: 2px;
-    }
-
-    .status-active {
-      background: rgba(22, 163, 74, 0.1);
-      color: #15803d;
-    }
-
-    .status-next {
-      background: rgba(0, 0, 0, 0.06);
-      color: var(--text-2);
-    }
-
     /* ── VISION ── */
     #vision {
       background: var(--bg-dark);
@@ -609,7 +587,7 @@
       color: var(--ink-dark);
       font-size: clamp(40px, 6vw, 72px);
       letter-spacing: -0.025em;
-      max-width: 860px;
+      max-width: 1000px;
     }
 
     .vision-cols {
@@ -1114,45 +1092,35 @@
   <section id="product">
     <div class="section reveal">
       <div class="eyebrow" data-i18n="prodEyebrow">The Product</div>
-      <h2 data-i18n="prodH2">Contextual design intelligence, inside your CAD environment.</h2>
+      <h2 data-i18n="prodH2">The company brain that turns company knowledge, tacit and explicit, into structured knowledge.</h2>
 
       <div class="product-intro">
         <p class="product-desc" data-i18n="prodDesc">
-          Metis integrates directly into CAD,
+          Metis integrates directly into and around CAD,
           enabling engineers to retrieve general and company-specific engineering knowledge
-          via natural language. It connects that knowledge to CAD geometry,
+          via natural language. It unifies text, image, and geometry information,
           providing actionable design insights in context.
           Engineers spend less time searching and more time on actual engineering design.
           <br/><br/>
           The system combines a general engineering layer (industry standards, DFM rules,
           material properties) with a customer-specific layer (company lessons learned,
-          internal guidelines, proprietary standards).
+          internal guidelines, proprietary standards) to build the company's collective intelligence.
         </p>
 
         <div class="product-layers">
           <div class="layer">
             <div class="layer-num">L1</div>
             <div class="layer-content">
-              <div class="layer-title" data-i18n="l1Title">Knowledge Retrieval</div>
+              <div class="layer-title" data-i18n="l1Title">Just-in-Time Collective Intelligence</div>
               <div class="layer-desc" data-i18n="l1Desc">Cursor-position spatial context + retrieval system surfaces DFM guidelines, lessons learned, and design standards in real time.</div>
             </div>
-            <span class="layer-status status-active" data-i18n="stActive">Active Build</span>
           </div>
           <div class="layer">
             <div class="layer-num">L2</div>
             <div class="layer-content">
-              <div class="layer-title" data-i18n="l2Title">Geometry Modification</div>
-              <div class="layer-desc" data-i18n="l2Desc">AI-informed knowledge applied directly — suggesting and executing changes to CAD geometry based on retrieved standards.</div>
+              <div class="layer-title" data-i18n="l2Title">Tacit to Structured Knowledge</div>
+              <div class="layer-desc" data-i18n="l2Desc">The system probes what it does not yet know, drawing out the tacit knowledge that lives only in engineers' heads.</div>
             </div>
-            <span class="layer-status status-next" data-i18n="stRoadmap">Roadmap</span>
-          </div>
-          <div class="layer">
-            <div class="layer-num">L3</div>
-            <div class="layer-content">
-              <div class="layer-title" data-i18n="l3Title">Geometry Generation</div>
-              <div class="layer-desc" data-i18n="l3Desc">New geometry created from knowledge-grounded constraints — the system as a true design collaborator.</div>
-            </div>
-            <span class="layer-status status-next" data-i18n="stRoadmap">Roadmap</span>
           </div>
         </div>
       </div>
@@ -1163,14 +1131,14 @@
   <section id="vision">
     <div class="section reveal">
       <div class="eyebrow" data-i18n="vEyebrow">The Vision</div>
-      <h2 data-i18n="vH2">Institutional memory<br/>that compounds.<br/>From explicit to structured to tacit.</h2>
+      <h2 data-i18n="vH2">Every engineering decision<br/>is informed by everything<br/>your organization knows.</h2>
       <div class="vision-cols">
         <p class="vision-lead" data-i18n="vLead1">
           Every engineer accumulates judgment that never makes it into a document —
           the reason a fillet radius got bumped up after a field failure, the supplier
           quirk that changes a tolerance, the fix that only lives in one person's head.
           Metis captures that tacit knowledge directly from engineers, including
-          your most experienced ones, as they work in CAD, and turns it into structured,
+          your most experienced ones, as they work, and turns it into structured,
           retrievable knowledge the moment it's created.
         </p>
         <p class="vision-lead" data-i18n="vLead2">
@@ -1261,7 +1229,7 @@
           <div class="traction-icon">⚙️</div>
           <div class="traction-text">
             <div class="traction-title" data-i18n="tr2T">Working prototypes</div>
-            <div class="traction-desc" data-i18n="tr2D">Core knowledge retrieval layer and automated geometric changes operational and demonstrated. Building our first MVBP that integrates them and provides value to users.</div>
+            <div class="traction-desc" data-i18n="tr2D">Streamlining engineering workflows to address pain points current engineers have.</div>
           </div>
         </div>
         <div class="traction-item">
@@ -1381,18 +1349,15 @@
       pc2Num: '変更1件で数百万円以上のコスト',
       pc2Desc: '自動車開発における後工程の設計変更は、1件で金型改修とプログラム遅延により数百万円以上のコストが発生。知見のギャップは構造的な問題であり、人材の入れ替わりとともに悪化します。',
       prodEyebrow: 'プロダクト',
-      prodH2: 'CAD環境の中に存在する、エンジニアリングデザインのための頭脳。',
-      prodDesc: 'MetisはCADに直接統合され、ハードウェア設計者は自然言語で一般知見と企業固有の知見を検索できます。抽出した知見をCADの形状に結びつけ、コンテキストに基づいた実行可能な設計知見を提供。ハードウェア設計者は探す時間を減らし、本来のエンジニアリングデザインに集中できます。<br/><br/>本システムは、一般知見コンテキスト（産業標準、製品化設計ルール、材料特性）と固有知見コンテキスト（過去プロジェクト知見、内規、独自標準）を統合し、企業の集合知を生成します。',
-      l1Title: 'CAD内集合知生成',
+      prodH2: '企業の知識（暗黙知、形式知）を構造知にするエンジニアリングデザインのための頭脳。',
+      prodDesc: 'MetisはCAD内外に直接統合され、ハードウェア設計者は自然言語で一般知見と企業固有の知見を検索できます。文字、画像、形状の情報を統合し、コンテキストに基づいた実行可能な設計知見を提供。ハードウェア設計者は探す時間を減らし、本来のエンジニアリングデザインに集中できます。<br/><br/>本システムは、一般知見コンテキスト（産業標準、製品化設計ルール、材料特性）と固有知見コンテキスト（過去プロジェクト知見、内規、独自標準）を統合し、企業の集合知を生成します。',
+      l1Title: 'ジャストインタイムの集合知の生成',
       l1Desc: 'カーソル位置の空間コンテキストと検索システムにより、製品化設計ガイドライン・過去知見・設計標準をリアルタイムに抽出。',
-      l2Title: 'CAD内形状自動修正',
-      l2Desc: '企業の集合知と設計者の最終判断に応じて、CAD形状への変更をAIが提案・実行。',
-      l3Title: 'CAD内形状自動生成',
-      l3Desc: '集合知と与えられた要件に基づき、形状を０から生成。',
-      stActive: '開発中', stRoadmap: '開発予定',
+      l2Title: '暗黙知の構造知化',
+      l2Desc: 'システムの未知の知により、人間の頭の中に存在する暗黙知を抽出。',
       vEyebrow: 'ビジョン',
-      vH2: '蓄積される企業の集合知<br/>形式知から構造知へ、そして暗黙知も。',
-      vLead1: 'どのエンジニアも、ドキュメントには残らない判断を積み重ねています。市場不具合を受けてフィレット半径を大きくした理由、公差を変えざるを得ないサプライヤー特有の癖、一人の頭の中にしかない対策。Metisは、最も経験豊富な人を含む現場のエンジニアがCADで作業するそばから、こうした暗黙知を捉え、生まれた瞬間に構造化された検索可能な知見へと変換します。',
+      vH2: '企業の全情報に基づいた設計判断を実現。',
+      vLead1: 'どのエンジニアも、ドキュメントには残らない判断を積み重ねています。市場不具合を受けてフィレット半径を大きくした理由、公差を変えざるを得ないサプライヤー特有の癖、一人の頭の中にしかない対策。Metisは、最も経験豊富な人を含む現場のエンジニアが設計業務をするそばから、こうした暗黙知を捉え、生まれた瞬間に構造化された検索可能な知見へと変換します。',
       vLead2: 'やがてそれは、設計判断のたびに蓄積され続ける企業の集合知となります。人が入れ替わっても企業に残り、専門知見を次世代のエンジニアへと受け継いでいきます。',
       tEyebrow: 'チーム',
       tH2: '実体験に基づく課題を、MITでの研究を用いて解決。',
@@ -1408,7 +1373,7 @@
       tr1T: '100名以上のカスタマーインタビュー',
       tr1D: '自動車メーカーおよびサプライヤーを対象に実施。コアとなる課題を検証し、プロダクトの意思決定に反映。',
       tr2T: '開発済みの試作品',
-      tr2D: 'コアとなる知見抽出レイヤーとCAD内形状自動修正の試作品開発済み。両者を統合した最初のMVBPを開発中。',
+      tr2D: '現場のエンジニアが抱える課題に応え、エンジニアリングのワークフローを効率化。',
       tr3T: 'OEM・サプライヤーとのエンゲージメント（有料POC契約締結）',
       tr3D: '試作品のデモを経て、自動車メーカーおよびサプライヤーのエンジニアとディレクターから積極的な関心。現場のエンジニアとマネージャーの双方と課題を確認し、有料POC契約を締結。',
       tr4T: 'MIT発のスタートアップ',
