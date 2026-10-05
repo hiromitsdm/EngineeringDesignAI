@@ -199,7 +199,8 @@
     html[lang="ja"] h1 { letter-spacing: 0.01em; line-height: 1.22; font-size: clamp(34px, 4.8vw, 50px); }
     html[lang="ja"] h2 { letter-spacing: 0.01em; line-height: 1.28; }
     html[lang="ja"] #vision h2 { font-size: clamp(34px, 5vw, 62px); }
-    html[lang="ja"] #product h2 { max-width: none; }
+    #product h2 { max-width: none; }
+    #traction h2 { max-width: none; }
     html[lang="ja"] .hero-eyebrow,
     html[lang="ja"] .eyebrow { letter-spacing: 0.1em; }
     html[lang="ja"] .hero-sub,
@@ -364,30 +365,28 @@
 
     .stat-item {
       flex: 1;
-      padding: 28px 16px;
+      padding: 30px 28px;
       border-right: 1px solid var(--border-soft);
       text-align: center;
     }
 
     .stat-item:last-child { border-right: none; }
 
-    .stat-num {
+    .value-title {
       font-family: var(--font-display);
-      font-size: 34px;
+      font-size: 22px;
       font-weight: 600;
-      letter-spacing: -1px;
-      color: var(--navy);   /* stats are on white bg, so navy not blue */
-      line-height: 1;
-      white-space: nowrap;
+      letter-spacing: -0.3px;
+      line-height: 1.25;
+      color: var(--navy);   /* on white bg, so navy not blue */
     }
 
-    .stat-label {
+    .value-desc {
       font-family: var(--font-text);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-2);
-      margin-top: 8px;
-      line-height: 1.45;
-      font-weight: 400;
+      margin-top: 10px;
+      line-height: 1.55;
     }
 
     @keyframes fadeUp {
@@ -607,6 +606,7 @@
     }
 
     /* ── TEAM ── */
+    #team h2 { max-width: none; }
     #team { background: var(--bg-white); border-top: 1px solid var(--border-soft); }
 
     .team-grid {
@@ -827,7 +827,7 @@
       align-items: start;
     }
 
-    .contact-copy h2 { max-width: 380px; }
+    .contact-copy h2 { max-width: none; }
 
     .contact-copy p {
       font-family: var(--font-text);
@@ -1105,17 +1105,14 @@
     </div>
     <div class="hero-stats">
       <div class="stat-item">
-        <div class="stat-num">50%</div>
-        <div class="stat-label" data-i18n="stat1">of engineering time lost to non-value-added work</div>
+        <div class="value-title" data-i18n="val1T">Faster design cycle<br/>with fewer errors</div>
+        <div class="value-desc" data-i18n="val1D">The right standards and lessons learned surface while engineers design, catching issues before costly late-stage changes.</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">100+</div>
-        <div class="stat-label" data-i18n="stat2">customer discovery<br/>interviews completed</div>
+        <div class="value-title" data-i18n="val2T">Accumulate knowledge<br/>before experts leave</div>
+        <div class="value-desc" data-i18n="val2D">Tacit know-how from your most experienced engineers is captured and structured, so it stays with the company.</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">$34B</div>
-        <div class="stat-label" data-i18n="stat3">Global PLM market<br/>growing at 7.6% CAGR<br/><em>(Fortune Business Insights, 2026)</em></div>
-      </div>
+    </div>
     </div>
   </section>
 
@@ -1157,7 +1154,7 @@
   <section id="product">
     <div class="section reveal">
       <div class="eyebrow" data-i18n="prodEyebrow">The Product</div>
-      <h2 data-i18n="prodH2">The company brain that turns company knowledge, tacit and explicit, into structured knowledge.</h2>
+      <h2 data-i18n="prodH2">The company brain that turns<br/>company knowledge, tacit and explicit,<br/>into structured knowledge.</h2>
 
       <div class="product-intro">
         <p class="product-desc" data-i18n="prodDesc">
@@ -1219,7 +1216,7 @@
   <section id="team">
     <div class="section reveal">
       <div class="eyebrow" data-i18n="tEyebrow">The Team</div>
-      <h2 data-i18n="tH2">Built by engineers who lived the problem with MIT research.</h2>
+      <h2 data-i18n="tH2">Built by engineers who lived the problem,<br/>with MIT research.</h2>
 
       <div class="team-grid">
         <div class="team-card">
@@ -1281,7 +1278,7 @@
   <section id="traction">
     <div class="section reveal">
       <div class="eyebrow" data-i18n="trEyebrow">Traction</div>
-      <h2 data-i18n="trH2">From discovery to demonstration — the feedback is consistent.</h2>
+      <h2 data-i18n="trH2">From discovery to demonstration<br/>— the feedback is consistent.</h2>
       <div class="traction-list">
         <div class="traction-item">
           <div class="traction-icon">🎙</div>
@@ -1355,7 +1352,7 @@
     <div class="contact-wrap reveal">
       <div class="contact-copy">
         <div class="eyebrow" data-i18n="cEyebrow">Get In Touch</div>
-        <h2 data-i18n="cH2">Request a demo or discuss a pilot.</h2>
+        <h2 data-i18n="cH2">Request a demo<br/>or discuss a pilot.</h2>
         <p data-i18n="cP">
           We are actively running pilots with design engineering teams in industries. If you are a design engineer, engineering director, or investor — we want
           to hear from you.
@@ -1431,9 +1428,10 @@
       heroH1: '設計部品につながった<br/><span class="accent">企業の集合知</span>',
       heroSub: 'Metisはハードウェア設計者のためのエンジニアリングデザインインテリジェンスを提供します。製品化設計ガイドライン、過去プロジェクト知見、設計標準をリアルタイムに抽出し、高品質な部品の効率的な設計を実現します。',
       ctaDemo: 'デモを申し込む', ctaHow: 'プロダクトを見る',
-      stat1: '設計者の時間のうち<br/>非正味業務に費やされる割合',
-      stat2: 'ハードウェア設計者への<br/>カスタマーインタビュー実施数',
-      stat3: '世界のCAD & PLM市場規模<br/>年率7.6%で成長<br/><em>（Fortune Business Insights, 2026）</em>',
+      val1T: 'ミスの少ない<br/>速い設計サイクル',
+      val1D: '設計中に必要な基準や過去知見が提示され、後工程での高コストな設計変更を未然に防ぎます。',
+      val2T: '熟練者が去る前に<br/>知見を蓄積',
+      val2D: '経験豊富なエンジニアの暗黙知を捉えて構造知に変え、企業の資産として残します。',
       pEyebrow: '課題',
       pH2: '企業内の設計情報が<br/>至る所に点在。',
       pLead1: '自動車、コンシューマーエレクトロニクス、航空宇宙などのハードウェア設計者たちは、毎日のかなりの時間を非正味業務に費やしています。PLMシステム、共有ドライブ、古いPDF、属人的な記憶等、企業内のあらゆる場所に散らばった知見を探し回りながら、CADでの設計業務を行なっています。',
@@ -1453,7 +1451,7 @@
       vLead1: 'どのエンジニアも、ドキュメントには残らない判断を積み重ねています。市場不具合を受けてフィレット半径を大きくした理由、公差を変えざるを得ないサプライヤー特有の癖、一人の頭の中にしかない対策。Metisは、最も経験豊富な人を含む現場のエンジニアが設計業務をするそばから、こうした暗黙知を捉え、生まれた瞬間に構造化された検索可能な知見へと変換します。',
       vLead2: 'やがてそれは、設計判断のたびに蓄積され続ける企業の集合知となります。人が入れ替わっても企業に残り、専門知見を次世代のエンジニアへと受け継いでいきます。',
       tEyebrow: 'チーム',
-      tH2: '実体験に基づく課題を、MITでの研究を用いて解決。',
+      tH2: '実体験に基づく課題を<br/>MITでの研究を用いて解決。',
       roleCeo: '共同創業者 & CEO', roleCto: '共同創業者 & CTO',
       nameHiro: '小笠原 浩樹',
       nameRowell: 'カストロ ローウェル',
