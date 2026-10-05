@@ -199,6 +199,7 @@
     html[lang="ja"] h1 { letter-spacing: 0.01em; line-height: 1.22; font-size: clamp(34px, 4.8vw, 50px); }
     html[lang="ja"] h2 { letter-spacing: 0.01em; line-height: 1.28; }
     html[lang="ja"] #vision h2 { font-size: clamp(34px, 5vw, 62px); }
+    html[lang="ja"] #product h2 { max-width: none; }
     html[lang="ja"] .hero-eyebrow,
     html[lang="ja"] .eyebrow { letter-spacing: 0.1em; }
     html[lang="ja"] .hero-sub,
@@ -752,6 +753,64 @@
 
     .traction-desc a:hover { opacity: 0.75; }
 
+    /* ── NEWS ── */
+    #news { background: var(--bg-white); border-top: 1px solid var(--border-soft); }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 52px;
+    }
+
+    .news-card {
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      background: var(--bg-light);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .news-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .news-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-2);
+      margin-bottom: 14px;
+    }
+
+    .news-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .news-excerpt {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .news-more {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy-link);
+      margin-top: 20px;
+    }
+
     /* ── CONTACT ── */
     #contact {
       background: var(--bg-white);
@@ -973,6 +1032,10 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .news-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 0 16px; }
       .nav-links { display: none; }
@@ -986,6 +1049,7 @@
       #vision h2 { font-size: clamp(36px, 9vw, 48px); }
       .vision-cols { grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
       .problem-grid { grid-template-columns: 1fr; gap: 36px; }
+      .news-grid { grid-template-columns: 1fr; margin-top: 36px; }
       .product-intro { grid-template-columns: 1fr; gap: 36px; margin-top: 36px; }
       .team-grid { grid-template-columns: 1fr; }
       .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
@@ -1013,6 +1077,7 @@
         <li><a href="#vision" data-i18n="navVision">Vision</a></li>
         <li><a href="#team" data-i18n="navTeam">Team</a></li>
         <li><a href="#traction" data-i18n="navTraction">Traction</a></li>
+        <li><a href="#news" data-i18n="navNews">News</a></li>
         <li><a href="#contact" class="nav-cta" data-i18n="navCta">Request Demo</a></li>
       </ul>
       <div class="lang-toggle" role="group" aria-label="Language">
@@ -1257,6 +1322,34 @@
     </div>
   </section>
 
+  <!-- NEWS — one .news-card per post, newest first. Post pages live in blog/ (copy blog/_template.html). -->
+  <section id="news">
+    <div class="section reveal">
+      <div class="eyebrow" data-i18n="newsEyebrow">News</div>
+      <h2 data-i18n="newsH2">Latest news</h2>
+      <div class="news-grid">
+        <a class="news-card" href="blog/utokyo-ipc-1stround-15th-cohort.html">
+          <time class="news-date" datetime="2026-10-05" data-i18n="news1Date">Oct 5, 2026</time>
+          <div class="news-title" data-i18n="news1T">Metis selected for UTokyo IPC's 1stRound program</div>
+          <div class="news-excerpt" data-i18n="news1D">UTokyo IPC has selected Metis for full selection in the 15th cohort of 1stRound, one of four teams out of eight selected.</div>
+          <div class="news-more" data-i18n="newsMore">Read more →</div>
+        </a>
+        <a class="news-card" href="blog/founder-university-japan-us-immersion.html">
+          <time class="news-date" datetime="2026-09-16" data-i18n="news2Date">Sep 16, 2026</time>
+          <div class="news-title" data-i18n="news2T">Metis selected for Founder University Japan's US Immersion Week</div>
+          <div class="news-excerpt" data-i18n="news2D">Metis is one of 10 companies selected from Founder University Japan, the JETRO × LAUNCH pre-accelerator, for US Immersion Week in San Francisco, October 19–23.</div>
+          <div class="news-more" data-i18n="newsMore">Read more →</div>
+        </a>
+        <a class="news-card" href="blog/mit-100k-finalist-2026.html">
+          <time class="news-date" datetime="2026-05-12" data-i18n="news3Date">May 12, 2026</time>
+          <div class="news-title" data-i18n="news3T">Metis named a finalist in the 2026 MIT $100K Entrepreneurship Competition</div>
+          <div class="news-excerpt" data-i18n="news3D">Metis, then competing as DesignFlowAI, was one of seven finalists in MIT's flagship startup competition, selected through three rounds from about 80 MIT startups.</div>
+          <div class="news-more" data-i18n="newsMore">Read more →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-wrap reveal">
@@ -1349,14 +1442,14 @@
       pc2Num: '変更1件で数百万円以上のコスト',
       pc2Desc: '自動車開発における後工程の設計変更は、1件で金型改修とプログラム遅延により数百万円以上のコストが発生。知見のギャップは構造的な問題であり、人材の入れ替わりとともに悪化します。',
       prodEyebrow: 'プロダクト',
-      prodH2: '企業の知識（暗黙知、形式知）を構造知にするエンジニアリングデザインのための頭脳。',
+      prodH2: '企業の知識（暗黙知、形式知）を構造知にする<br/>エンジニアリングデザインのための頭脳。',
       prodDesc: 'MetisはCAD内外に直接統合され、ハードウェア設計者は自然言語で一般知見と企業固有の知見を検索できます。文字、画像、形状の情報を統合し、コンテキストに基づいた実行可能な設計知見を提供。ハードウェア設計者は探す時間を減らし、本来のエンジニアリングデザインに集中できます。<br/><br/>本システムは、一般知見コンテキスト（産業標準、製品化設計ルール、材料特性）と固有知見コンテキスト（過去プロジェクト知見、内規、独自標準）を統合し、企業の集合知を生成します。',
       l1Title: 'ジャストインタイムの集合知の生成',
       l1Desc: 'カーソル位置の空間コンテキストと検索システムにより、製品化設計ガイドライン・過去知見・設計標準をリアルタイムに抽出。',
       l2Title: '暗黙知の構造知化',
       l2Desc: 'システムの未知の知により、人間の頭の中に存在する暗黙知を抽出。',
       vEyebrow: 'ビジョン',
-      vH2: '企業の全情報に基づいた設計判断を実現。',
+      vH2: '企業の全情報に基づいた<br/>設計判断を実現',
       vLead1: 'どのエンジニアも、ドキュメントには残らない判断を積み重ねています。市場不具合を受けてフィレット半径を大きくした理由、公差を変えざるを得ないサプライヤー特有の癖、一人の頭の中にしかない対策。Metisは、最も経験豊富な人を含む現場のエンジニアが設計業務をするそばから、こうした暗黙知を捉え、生まれた瞬間に構造化された検索可能な知見へと変換します。',
       vLead2: 'やがてそれは、設計判断のたびに蓄積され続ける企業の集合知となります。人が入れ替わっても企業に残り、専門知見を次世代のエンジニアへと受け継いでいきます。',
       tEyebrow: 'チーム',
@@ -1380,6 +1473,16 @@
       tr4D: 'Bill Aulet教授の起業101クラスから誕生し、MIT Sandbox Innovation Fund Programによる支援を受ける。MIT $100K起業コンペでMITスタートアップ80社のうちトップ7社のうちの一社に選出（<a href="https://www.youtube.com/live/wkhGFYeK5D4?si=vFq5sny27AhLlAWw&t=3605">ピッチ動画</a>）。',
       tr5T: 'Y Combinator トップ10%',
       tr5D: '初挑戦でY Combinator Summer 2026応募者のトップ10%にランクイン。',
+      navNews: 'ニュース', newsEyebrow: 'ニュース', newsH2: '最新ニュース', newsMore: '続きを読む →',
+      news1Date: '2026年10月5日',
+      news1T: 'Metis、東大IPC 第15回「1stRound」に本採択',
+      news1D: '東大IPC 第15回「1stRound」で、採択8チーム中、上位4チームの本採択に選ばれました。',
+      news2Date: '2026年9月16日',
+      news2T: 'Metis、Founder University Japan「US Immersion Week」参加10社に選出',
+      news2D: 'JETROとLAUNCHによるプレアクセラレーター「Founder University Japan」で、Metisが米国プログラムの参加10社に選ばれました。10月19日〜23日、サンフランシスコで米国の投資家やスタートアップと交流します。',
+      news3Date: '2026年5月12日',
+      news3T: 'Metis、2026年 MIT $100K起業コンペでファイナリストに選出',
+      news3D: 'Metis（当時のチーム名：DesignFlowAI）は、MITを代表するスタートアップコンペ「MIT $100K起業コンペ」で、約80社の中から3ラウンドを経てファイナリスト7社に選ばれました。',
       cEyebrow: 'お問い合わせ',
       cH2: 'デモのご依頼/パイロットのご相談。',
       cP: '現在、各業界のハードウェア設計チームとパイロットを進めています。エンジニア、マネージャー、投資家の方からのお問い合わせをお待ちしています。',

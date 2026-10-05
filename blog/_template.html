@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- POST TEMPLATE: copy this file to blog/<slug>.html for each new post.
+     Update data-title-en / data-title-ja, <title>, meta tags, the date, and both language blocks.
+     Then add a matching card to the NEWS section of index.html. -->
+<html lang="en" data-title-en="[Sample] Post title — Metis" data-title-ja="[サンプル] 記事タイトル — Metis">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>[Sample] Post title — Metis</title>
+  <meta name="description" content="One-sentence summary of the post."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="[Sample] Post title — Metis"/>
+  <meta property="og:description" content="One-sentence summary of the post."/>
+  <meta property="og:image" content="https://metistec.ai/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" type="image/png" href="/Metis_logo-04.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="/Metis_logo-05.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Schibsted+Grotesk:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="post.css"/>
+  <script src="post.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../" class="nav-logo">Metis</a>
+    <div class="nav-right">
+      <a href="../#contact" class="nav-cta"><span class="lang-en">Request Demo</span><span class="lang-ja">デモを申し込む</span></a>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ja">日本語</button>
+      </div>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="../#news" class="post-back"><span class="lang-en">← All news</span><span class="lang-ja">← ニュース一覧</span></a>
+    <div class="post-eyebrow"><span class="lang-en">News</span><span class="lang-ja">ニュース</span></div>
+
+    <h1 class="lang-en">[Sample] Post title goes here</h1>
+    <h1 class="lang-ja">[サンプル] 記事タイトルをここに</h1>
+
+    <time class="post-date" datetime="2026-10-05"><span class="lang-en">Oct 5, 2026</span><span class="lang-ja">2026年10月5日</span></time>
+
+    <div class="post-body lang-en">
+      <p>Opening paragraph: what happened and why it matters to design engineers.</p>
+      <h2>Section heading</h2>
+      <p>Body text. Links look like <a href="../">this</a>.</p>
+      <ul>
+        <li>Bullet point</li>
+        <li>Bullet point</li>
+      </ul>
+      <p>Closing paragraph. Want to see Metis in action? <a href="../#contact">Request a demo</a>.</p>
+    </div>
+
+    <div class="post-body lang-ja">
+      <p>導入：何が起きたのか、ハードウェア設計者にとってなぜ重要なのか。</p>
+      <h2>見出し</h2>
+      <p>本文。リンクは<a href="../">このように</a>表示されます。</p>
+      <ul>
+        <li>箇条書き</li>
+        <li>箇条書き</li>
+      </ul>
+      <p>締めの段落。Metisのデモをご覧になりたい方は<a href="../#contact">こちら</a>からお申し込みください。</p>
+    </div>
+  </article>
+
+  <footer>
+    <a href="../"><img src="../Metis_logo-02.png" alt="Metis" height="28"/></a>
+    <div class="footer-copy">© 2026 Metis Technologies, Inc. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
