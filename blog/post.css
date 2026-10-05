@@ -182,6 +182,10 @@ nav {
 }
 .post-body .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .post-body .video-caption { font-size: 14px; color: var(--text-2); margin-bottom: 28px; }
+.post-figure { margin: 12px 0 32px; }
+.post-figure img { display: block; width: 100%; height: auto; border-radius: var(--r-lg); margin: 0; }
+.post-figure figcaption { font-size: 14px; color: var(--text-2); margin-top: 10px; }
+.post-figure--framed img { border: 1px solid var(--border-soft); }
 .post-body img { max-width: 100%; height: auto; border-radius: var(--r-lg); margin: 12px 0 24px; }
 
 html[lang="ja"] body { letter-spacing: 0; }
